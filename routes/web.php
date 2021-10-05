@@ -14,5 +14,33 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('landing.home');
+})->name('beranda');
+
+Route::get('/berita', function () {
+    return view('landing.blog');
+})->name('berita');
+
+Route::get('/berita/detail', function () {
+    return view('landing.blog-detail');
+})->name('detail.berita');
+
+Route::get('/toko', function () {
+    return view('landing.shop');
+})->name('toko');
+
+Route::get('/toko/detail', function () {
+    return view('landing.shop-detail');
+})->name('detail.toko');
+
+Route::get('/kontak', function () {
+    return view('landing.contact');
+})->name('kontak');
+
+Route::get('/keranjang', function () {
+    return view('landing.cart');
+})->name('keranjang');
+
+Route::get('/checkout', function () {
+    return view('landing.checkout');
+})->name('checkout');
