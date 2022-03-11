@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LandingController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\BlogController as AdminBlogController;
+use App\Http\Controllers\Ketua\BlogController as KetuaBlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,17 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('landing.home');
-})->name('beranda');
+Route::get('/', [LandingController::class, 'home'])->name('beranda');
 
-Route::get('/berita', function () {
-    return view('landing.blog');
-})->name('berita');
+Route::get('/berita', [LandingController::class, 'blog'])->name('berita');
 
-Route::get('/berita/detail', function () {
-    return view('landing.blog-detail');
-})->name('detail.berita');
+Route::get('/berita/{slug}', [LandingController::class, 'blogDetail'])->name('detail.berita');
 
 Route::get('/toko', function () {
     return view('landing.shop');
@@ -45,60 +43,67 @@ Route::get('/checkout', function () {
     return view('landing.checkout');
 })->name('checkout');
 
-Route::get('/masuk', function () {
-    return view('landing.login');
-})->name('masuk');
+Route::prefix('admin')->as('admin.')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/pengguna', function () {
+        return view('dashboard.admin.user.index');
+    })->name('user');
 
-Route::get('/daftar', function () {
-    return view('landing.register');
-})->name('daftar');
-
-Route::prefix('kepala')->group(function () {
-    Route::get('/', function () {
-        return view('dashboard.kepala.home');
-    })->name('kepala.beranda');
-
-    Route::get('/pesanan', function () {
-        return view('dashboard.kepala.order.index');
-    })->name('kepala.pesanan');
-
-    Route::get('/pesanan/detail', function () {
-        return view('dashboard.kepala.order.show');
-    })->name('kepala.detail.pesanan');
-
-    Route::get('/produk', function () {
-        return view('dashboard.kepala.product.index');
-    })->name('kepala.produk');
-
-    Route::get('/anggota', function () {
-        return view('dashboard.kepala.anggota.index');
-    })->name('kepala.anggota');
-
-    Route::get('/persediaan', function () {
-        return view('dashboard.kepala.raw-stock.index');
-    })->name('kepala.persediaan');
-
-    Route::get('/harga', function () {
-        return view('dashboard.kepala.price.index');
-    })->name('kepala.harga');
+    Route::resource('berita', AdminBlogController::class)->except(['create', 'show']);
 });
 
-Route::prefix('anggota')->group(function () {
+Route::prefix('ketua')->as('ketua.')->middleware(['auth', 'role:ketua'])->group(function () {
+    Route::get('/', function () {
+        return view('dashboard.ketua.home');
+    })->name('beranda');
+
+    Route::resource('berita', KetuaBlogController::class)->except(['create', 'show']);
+
+    Route::get('/pesanan', function () {
+        return view('dashboard.ketua.order.index');
+    })->name('pesanan');
+
+    Route::get('/pesanan/detail', function () {
+        return view('dashboard.ketua.order.show');
+    })->name('detail.pesanan');
+
+    Route::get('/produk', function () {
+        return view('dashboard.ketua.product.index');
+    })->name('produk');
+
+    Route::get('/anggota', function () {
+        return view('dashboard.ketua.anggota.index');
+    })->name('anggota');
+
+    Route::get('/persediaan', function () {
+        return view('dashboard.ketua.raw-stock.index');
+    })->name('persediaan');
+
+    Route::get('/harga', function () {
+        return view('dashboard.ketua.price.index');
+    })->name('harga');
+});
+
+Route::prefix('anggota')->as('anggota.')->middleware(['auth', 'role:anggota'])->group(function () {
     Route::get('/persediaan', function () {
         return view('dashboard.anggota.raw-stock.index');
-    })->name('anggota.persediaan');
+    })->name('persediaan');
 
     Route::get('/harga', function () {
         return view('dashboard.anggota.price.index');
-    })->name('anggota.harga');
+    })->name('harga');
 });
 
-Route::prefix('pelanggan')->group(function () {
+Route::prefix('pembeli')->as('pembeli.')->middleware(['auth', 'role:pembeli'])->group(function () {
     Route::get('/pesanan', function () {
-        return view('dashboard.pelanggan.order.index');
-    })->name('pelanggan.pesanan');
+        return view('dashboard.pembeli.order.index');
+    })->name('pesanan');
 
     Route::get('/pesanan/detail', function () {
-        return view('dashboard.pelanggan.order.show');
-    })->name('pelanggan.detail.pesanan');
+        return view('dashboard.pembeli.order.show');
+    })->name('detail.pesanan');
 });
+
+Auth::routes([
+    'reset' => false,
+    'verify' => false,
+]);

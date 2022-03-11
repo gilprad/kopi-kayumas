@@ -1,6 +1,6 @@
 @extends('layouts.dashboard.base')
 
-@section('title', 'Anggota')
+@section('title', 'Harga Ambil')
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('dashboard/modules/datatables/datatables.min.css') }}">
@@ -13,7 +13,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Anggota</h1>
+                <h1>Harga Ambil</h1>
             </div>
 
             <div class="section-body">
@@ -21,35 +21,37 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Tabel Anggota</h4>
+                                <h4>Tabel Harga Ambil</h4>
                                 <div class="card-header-action">
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#create-anggota">Tambah
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#create-price">Tambah
                                         Data</a>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped" id="table-anggota">
+                                    <table class="table table-striped" id="table-price">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
-                                                <th>Foto</th>
-                                                <th>Nama</th>
-                                                <th>Alamat</th>
-                                                <th>Nomor Telepon</th>
-                                                <th>Email</th>
+                                                <th>Bahan</th>
+                                                <th>Harga Ambil</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td>1</td>
-                                                <td><img src="{{ asset('landing/images/person_1.jpg') }}" width="100"
-                                                        height="100" alt=""></td>
-                                                <td>Herman</td>
-                                                <td>Jalan PTPN XII No. 1, Desa Kayumas</td>
-                                                <td>082123456798</td>
-                                                <td>herman@email.com</td>
+                                                <td>Ceri Merah</td>
+                                                <td>Rp12.500/kg</td>
+                                                <td>
+                                                    <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>Olahan Kopi Basah</td>
+                                                <td>Rp26.500/kg</td>
                                                 <td>
                                                     <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i></a>
                                                     <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
@@ -64,7 +66,7 @@
                 </div>
             </div>
         </section>
-        @include('dashboard.kepala.anggota.create')
+        @include('dashboard.ketua.price.create')
     </div>
 @endsection
 
@@ -78,10 +80,10 @@
     <script>
         "use strict"
 
-        $("#table-anggota").dataTable({
+        $("#table-price").dataTable({
             "columnDefs": [{
                 "sortable": false,
-                "targets": [1, 2, 3, 4, 5, 6]
+                "targets": [1, 2, 3]
             }]
         });
     </script>

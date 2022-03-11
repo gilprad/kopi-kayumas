@@ -8,17 +8,36 @@
         </button>
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item {{ Request::route()->getName() == 'beranda' ? 'active' : '' }}"><a
-                        href="{{ route('beranda') }}" class="nav-link">Beranda</a></li>
-                <li class="nav-item {{ Request::route()->getName() == 'berita' ? 'active' : '' }}"><a
-                        href="{{ route('berita') }}" class="nav-link">Berita</a></li>
-                <li class="nav-item {{ Request::route()->getName() == 'toko' ? 'active' : '' }}"><a
-                        href="{{ route('toko') }}" class="nav-link">Toko</a></li>
-                <li class="nav-item {{ Request::route()->getName() == 'kontak' ? 'active' : '' }}"><a
-                        href="{{ route('kontak') }}" class="nav-link">Kontak</a></li>
-                <li class="nav-item cart"><a href="{{ route('keranjang') }}" class="nav-link"><span
-                            class="icon icon-shopping_cart"></span><span
-                            class="bag d-flex justify-content-center align-items-center"><small>1</small></span></a>
+                <li class="nav-item {{ Request::route()->getName() == 'beranda' ? 'active' : '' }}">
+                    <a href="{{ route('beranda') }}" class="nav-link">Beranda</a>
+                </li>
+                <li class="nav-item {{ Request::route()->getName() == 'berita' ? 'active' : '' }}">
+                    <a href="{{ route('berita') }}" class="nav-link">Berita</a>
+                </li>
+                <li class="nav-item {{ Request::route()->getName() == 'toko' ? 'active' : '' }}">
+                    <a href="{{ route('toko') }}" class="nav-link">Toko</a>
+                </li>
+                <li class="nav-item {{ Request::route()->getName() == 'kontak' ? 'active' : '' }}">
+                    <a href="{{ route('kontak') }}" class="nav-link">Kontak</a>
+                </li>
+                @auth
+                <li class="nav-item">
+                    @role('admin')
+                        <a href="{{ route('admin.user') }}" class="nav-link">Dashboard</a>
+                    @elserole('ketua')
+                        <a href="{{ route('ketua.beranda') }}" class="nav-link">Dashboard</a>
+                    @elserole('anggota')
+                        <a href="{{ route('anggota.harga') }}" class="nav-link">Dashboard</a>
+                    @elserole('pembeli')
+                        <a href="{{ route('pembeli.pesanan') }}" class="nav-link">Dashboard</a>
+                    @endrole
+                </li>
+                @endauth
+                <li class="nav-item cart">
+                    <a href="{{ route('keranjang') }}" class="nav-link">
+                        <span class="icon icon-shopping_cart"></span>
+                        <span class="bag d-flex justify-content-center align-items-center"><small>1</small></span>
+                    </a>
                 </li>
             </ul>
         </div>
