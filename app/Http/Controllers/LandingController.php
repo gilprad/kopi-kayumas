@@ -28,4 +28,11 @@ class LandingController extends Controller
 
         return view('landing.blog-detail', compact('blogs', 'blog'));
     }
+
+    public function checkout()
+    {
+        $blogs = Blog::orderBy('created_at', 'ASC')->get()->take(3);
+
+        return view('landing.checkout', compact('blogs'));
+    }
 }

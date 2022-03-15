@@ -39,9 +39,7 @@ Route::get('/keranjang', function () {
     return view('landing.cart');
 })->name('keranjang');
 
-Route::get('/checkout', function () {
-    return view('landing.checkout');
-})->name('checkout');
+Route::get('/checkout', [LandingController::class, 'checkout'])->name('checkout');
 
 Route::prefix('admin')->as('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/pengguna', function () {

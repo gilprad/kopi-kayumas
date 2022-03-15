@@ -33,18 +33,18 @@
                         <div class="row align-items-end">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="firstname">Nama Depan</label>
+                                    <label for="name">Nama</label>
                                     <input type="text" class="form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="lastname">Nama Belakang</label>
+                                    <label for="phone">Nomor Telepon</label>
                                     <input type="text" class="form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="w-100"></div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="country">Provinsi</label>
                                     <div class="select-wrap">
@@ -60,8 +60,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="w-100"></div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="country">Kabupaten</label>
                                     <div class="select-wrap">
@@ -84,19 +83,6 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="postcodezip">Kode Pos</label>
-                                    <input type="text" class="form-control" placeholder="">
-                                </div>
-                            </div>
-                            <div class="w-100"></div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="phone">Nomor Telepon</label>
-                                    <input type="text" class="form-control" placeholder="">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="emailaddress">Email</label>
                                     <input type="text" class="form-control" placeholder="">
                                 </div>
                             </div>
@@ -163,54 +149,18 @@
                 <div class="col-xl-4 sidebar ftco-animate">
                     <div class="sidebar-box ftco-animate">
                         <h3>Berita Terbaru</h3>
-                        <div class="block-21 mb-4 d-flex">
-                            <a class="blog-img mr-4"
-                                style="background-image: url({{ asset('landing/images/gallery-1.jpg') }});"></a>
-                            <div class="text">
-                                <h3 class="heading"><a href="{{ route('detail.berita') }}">Lorem ipsum dolor sit
-                                        amet consectetur, adipisicing elit. Ea, illo.</a></h3>
-                                <div class="meta">
-                                    <div><a href="{{ route('detail.berita') }}"><span class="icon-calendar"></span> 9
-                                            Oktober 2021</a></div>
-                                    <div><a href="{{ route('detail.berita') }}"><span class="icon-person"></span>
-                                            Admin</a></div>
-                                    <div><a href="{{ route('detail.berita') }}"><span class="icon-chat"></span>
-                                            19</a></div>
+                        @foreach ($blogs as $blog)
+                            <div class="block-21 mb-4 d-flex">
+                                <a class="blog-img mr-4"
+                                    style="background-image: url({{ url('/storage/thumbnail/' . $blog->thumbnail) }});"></a>
+                                <div class="text">
+                                    <h3 class="heading"><a href="{{ route('detail.berita', $blog->slug) }}">{{ $blog->title }}</a></h3>
+                                    <div class="meta">
+                                        <div><a href="{{ route('detail.berita', $blog->slug) }}"><span class="icon-calendar"></span> {{ $blog->created_at }}</a></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="block-21 mb-4 d-flex">
-                            <a class="blog-img mr-4"
-                                style="background-image: url({{ asset('landing/images/gallery-3.jpg') }});"></a>
-                            <div class="text">
-                                <h3 class="heading"><a href="{{ route('detail.berita') }}">Lorem ipsum dolor sit
-                                        amet consectetur, adipisicing elit. Ea, illo.</a></h3>
-                                <div class="meta">
-                                    <div><a href="{{ route('detail.berita') }}"><span class="icon-calendar"></span> 9
-                                            Oktober 2021</a></div>
-                                    <div><a href="{{ route('detail.berita') }}"><span class="icon-person"></span>
-                                            Admin</a></div>
-                                    <div><a href="{{ route('detail.berita') }}"><span class="icon-chat"></span>
-                                            19</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="block-21 mb-4 d-flex">
-                            <a class="blog-img mr-4"
-                                style="background-image: url({{ asset('landing/images/gallery-4.jpg') }});"></a>
-                            <div class="text">
-                                <h3 class="heading"><a href="{{ route('detail.berita') }}">Lorem ipsum dolor sit
-                                        amet consectetur, adipisicing elit. Ea, illo.</a></h3>
-                                <div class="meta">
-                                    <div><a href="{{ route('detail.berita') }}"><span class="icon-calendar"></span> 9
-                                            Oktober 2021</a></div>
-                                    <div><a href="{{ route('detail.berita') }}"><span class="icon-person"></span>
-                                            Admin</a></div>
-                                    <div><a href="{{ route('detail.berita') }}"><span class="icon-chat"></span>
-                                            19</a></div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
