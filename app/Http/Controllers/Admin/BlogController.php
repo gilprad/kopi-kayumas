@@ -141,6 +141,6 @@ class BlogController extends Controller
         Storage::disk('local')->delete('public/thumbnail/' . $blog->thumbnail);
         $blog->delete();
 
-        return redirect()->back()->with(['success' => 'Data berhasil dihapus']);
+        return redirect()->back()->with('success', 'Data berhasil dihapus');
     }
 }
