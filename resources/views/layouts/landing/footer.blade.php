@@ -2,7 +2,7 @@
     <div class="overlay"></div>
     <div class="container">
         <div class="row mb-5">
-            <div class="col-lg-4 col-md-6 mb-5 mb-md-5">
+            <div class="col-md-6 mb-5 mb-md-5">
                 <div class="ftco-footer-widget mb-4">
                     <h2 class="ftco-heading-2">Tentang Kami</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, alias iste consequuntur atque
@@ -14,44 +14,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 mb-5 mb-md-5">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Berita Terbaru</h2>
-                    <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4"
-                            style="background-image: url({{ asset('landing/images/gallery-3.jpg') }});"></a>
-                        <div class="text">
-                            <h3 class="heading"><a href="{{ route('detail.berita') }}">Lorem ipsum dolor sit
-                                    amet consectetur adipisicing elit. Non, doloremque?</a></h3>
-                            <div class="meta">
-                                <div><a href="{{ route('detail.berita') }}"><span class="icon-calendar"></span> 9
-                                        Oktober 2021</a></div>
-                                <div><a href="{{ route('detail.berita') }}"><span class="icon-person"></span>
-                                        Admin</a></div>
-                                <div><a href="{{ route('detail.berita') }}"><span class="icon-chat"></span>
-                                        19</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4"
-                            style="background-image: url({{ asset('landing/images/gallery-4.jpg') }});"></a>
-                        <div class="text">
-                            <h3 class="heading"><a href="{{ route('detail.berita') }}">Lorem ipsum dolor sit
-                                    amet consectetur adipisicing elit. Non, doloremque?</a></h3>
-                            <div class="meta">
-                                <div><a href="{{ route('detail.berita') }}"><span class="icon-calendar"></span> 9
-                                        Oktober 2021</a></div>
-                                <div><a href="{{ route('detail.berita') }}"><span class="icon-person"></span>
-                                        Admin</a></div>
-                                <div><a href="{{ route('detail.berita') }}"><span class="icon-chat"></span>
-                                        19</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-5 mb-md-5">
+            <div class="col-md-6 mb-5 mb-md-5">
                 <div class="ftco-footer-widget mb-4">
                     <h2 class="ftco-heading-2">Punya Pertanyaan?</h2>
                     <div class="block-23 mb-3">

@@ -22,10 +22,6 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4>Tabel Persediaan</h4>
-                                <div class="card-header-action">
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#create-raw-stock">Tambah
-                                        Data</a>
-                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -33,28 +29,25 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
-                                                <th>Bahan</th>
-                                                <th>Berat</th>
+                                                <th>Foto</th>
+                                                <th>Nama</th>
+                                                <th>Alamat</th>
+                                                <th>Nomor Telepon</th>
+                                                <th>Email</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td>1</td>
-                                                <td>Ceri Merah</td>
-                                                <td>100 kg</td>
+                                                <td><img src="{{ asset('landing/images/person_1.jpg') }}" width="100"
+                                                        height="100" alt=""></td>
+                                                <td>Herman</td>
+                                                <td>Jalan PTPN XII No. 1, Desa Kayumas</td>
+                                                <td>082123456798</td>
+                                                <td>herman@email.com</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Olahan Kopi Basah</td>
-                                                <td>200 kg</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
+                                                    <button class="btn btn-primary" data-toggle="modal" data-target="#show-raw-stock">Lihat Persediaan</a>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -66,7 +59,7 @@
                 </div>
             </div>
         </section>
-        @include('dashboard.anggota.raw-stock.create')
+        @include('dashboard.ketua.raw-stock.show')
     </div>
 @endsection
 
@@ -83,7 +76,7 @@
         $("#table-raw-stock").dataTable({
             "columnDefs": [{
                 "sortable": false,
-                "targets": [1, 2, 3]
+                "targets": [1, 2, 3, 4, 5, 6]
             }]
         });
     </script>

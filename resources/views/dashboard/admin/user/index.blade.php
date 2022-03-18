@@ -1,6 +1,6 @@
 @extends('layouts.dashboard.base')
 
-@section('title', 'Persediaan')
+@section('title', 'Pengguna')
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('dashboard/modules/datatables/datatables.min.css') }}">
@@ -13,7 +13,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Persediaan</h1>
+                <h1>Pengguna</h1>
             </div>
 
             <div class="section-body">
@@ -21,42 +21,45 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Tabel Persediaan</h4>
+                                <h4>Tabel Pengguna</h4>
                                 <div class="card-header-action">
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#create-raw-stock">Tambah
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#create-user">Tambah
                                         Data</a>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped" id="table-raw-stock">
+                                    <table class="table table-striped" id="table-user">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
-                                                <th>Bahan</th>
-                                                <th>Berat</th>
+                                                <th>Nama</th>
+                                                <th>Username</th>
+                                                <th>Alamat</th>
+                                                <th>Nomor Telepon</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Ceri Merah</td>
-                                                <td>100 kg</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Olahan Kopi Basah</td>
-                                                <td>200 kg</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
-                                                </td>
-                                            </tr>
+                                            @foreach ($users as $i => $user)
+                                                <tr>
+                                                    <td>{{ $i+1 }}</td>
+                                                    <td>{{ $user->name }}</td>
+                                                    <td>{{ $user->username }}</td>
+                                                    <td>{{ $user->profile !== null ? $user->profile->address : '' }}</td>
+                                                    <td>{{ $user->profile !== null ? $user->profile->phone : '' }}</td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <a href="{{ route('admin.pengguna.edit', $user->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                                            <form action="{{ route('admin.pengguna.destroy', $user->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button class="btn btn-danger" type="submit"><i class="fa fa-times"></i></button>
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -66,7 +69,7 @@
                 </div>
             </div>
         </section>
-        @include('dashboard.anggota.raw-stock.create')
+        @include('dashboard.admin.user.create')
     </div>
 @endsection
 
@@ -80,10 +83,10 @@
     <script>
         "use strict"
 
-        $("#table-raw-stock").dataTable({
+        $("#table-user").dataTable({
             "columnDefs": [{
                 "sortable": false,
-                "targets": [1, 2, 3]
+                "targets": [1, 2, 3, 4, 5]
             }]
         });
     </script>

@@ -103,7 +103,7 @@
                 </div>
             </div>
         </section>
-        @include('dashboard.kepala.product.create')
+        @include('dashboard.ketua.product.create')
     </div>
 @endsection
 

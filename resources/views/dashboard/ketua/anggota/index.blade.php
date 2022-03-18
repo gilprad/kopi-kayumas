@@ -1,6 +1,6 @@
 @extends('layouts.dashboard.base')
 
-@section('title', 'Persediaan')
+@section('title', 'Anggota')
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('dashboard/modules/datatables/datatables.min.css') }}">
@@ -13,7 +13,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Persediaan</h1>
+                <h1>Anggota</h1>
             </div>
 
             <div class="section-body">
@@ -21,11 +21,15 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Tabel Persediaan</h4>
+                                <h4>Tabel Anggota</h4>
+                                <div class="card-header-action">
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#create-anggota">Tambah
+                                        Data</a>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped" id="table-raw-stock">
+                                    <table class="table table-striped" id="table-anggota">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
@@ -47,7 +51,8 @@
                                                 <td>082123456798</td>
                                                 <td>herman@email.com</td>
                                                 <td>
-                                                    <button class="btn btn-primary" data-toggle="modal" data-target="#show-raw-stock">Lihat Persediaan</a>
+                                                    <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -59,7 +64,7 @@
                 </div>
             </div>
         </section>
-        @include('dashboard.kepala.raw-stock.show')
+        @include('dashboard.ketua.anggota.create')
     </div>
 @endsection
 
@@ -73,7 +78,7 @@
     <script>
         "use strict"
 
-        $("#table-raw-stock").dataTable({
+        $("#table-anggota").dataTable({
             "columnDefs": [{
                 "sortable": false,
                 "targets": [1, 2, 3, 4, 5, 6]

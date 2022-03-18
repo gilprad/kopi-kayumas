@@ -2,6 +2,19 @@
 
 @section('title', 'Berita')
 
+@push('style')
+    <style>
+        .block-27 nav {
+            display: flex;
+            justify-content: center;
+        }
+
+        .block-27 nav ul li {
+            margin: 0 2px;
+        }
+    </style>
+@endpush
+
 @section('content')
     <section class="home-slider owl-carousel">
 
@@ -27,132 +40,27 @@
     <section class="ftco-section">
         <div class="container">
             <div class="row d-flex">
-                <div class="col-md-4 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="{{ route('detail.berita') }}" class="block-20"
-                            style="background-image: url({{ asset('landing/images/gallery-1.jpg') }});">
-                        </a>
-                        <div class="text py-4 d-block">
-                            <div class="meta">
-                                <div><a href="{{ route('detail.berita') }}">9 Oktober 2021</a></div>
-                                <div><a href="{{ route('detail.berita') }}">Admin</a></div>
-                                <div><a href="{{ route('detail.berita') }}" class="meta-chat"><span
-                                            class="icon-chat"></span> 3</a>
+                @foreach ($blogs as $blog)
+                    <div class="col-md-4 d-flex ftco-animate">
+                        <div class="w-100 blog-entry align-self-stretch">
+                            <a href="{{ route('detail.berita', $blog->slug) }}" class="block-20"
+                                style="background-image: url({{ asset('storage/thumbnail/'.$blog->thumbnail) }});">
+                            </a>
+                            <div class="text py-4 d-block">
+                                <div class="meta">
+                                    <div><a href="{{ route('detail.berita', $blog->slug) }}">{{ $blog->created_at }}</a></div>
                                 </div>
+                                <h3 class="heading mt-2"><a href="{{ route('detail.berita', $blog->slug) }}">{{ $blog->title }}</a></h3>
+                                <p>{{ $blog->excerpt }}</p>
                             </div>
-                            <h3 class="heading mt-2"><a href="{{ route('detail.berita') }}">Lorem, ipsum dolor.</a></h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, repellendus!</p>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="{{ route('detail.berita') }}" class="block-20"
-                            style="background-image: url({{ asset('landing/images/gallery-3.jpg') }});">
-                        </a>
-                        <div class="text py-4 d-block">
-                            <div class="meta">
-                                <div><a href="{{ route('detail.berita') }}">9 Oktober 2021</a></div>
-                                <div><a href="{{ route('detail.berita') }}">Admin</a></div>
-                                <div><a href="{{ route('detail.berita') }}" class="meta-chat"><span
-                                            class="icon-chat"></span> 3</a>
-                                </div>
-                            </div>
-                            <h3 class="heading mt-2"><a href="{{ route('detail.berita') }}">Lorem, ipsum dolor.</a>
-                            </h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, repellendus!</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="{{ route('detail.berita') }}" class="block-20"
-                            style="background-image: url({{ asset('landing/images/gallery-4.jpg') }});">
-                        </a>
-                        <div class="text py-4 d-block">
-                            <div class="meta">
-                                <div><a href="{{ route('detail.berita') }}">9 Oktober 2021</a></div>
-                                <div><a href="{{ route('detail.berita') }}">Admin</a></div>
-                                <div><a href="{{ route('detail.berita') }}" class="meta-chat"><span
-                                            class="icon-chat"></span> 3</a>
-                                </div>
-                            </div>
-                            <h3 class="heading mt-2"><a href="{{ route('detail.berita') }}">Lorem, ipsum dolor.</a>
-                            </h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, repellendus!</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="{{ route('detail.berita') }}" class="block-20"
-                            style="background-image: url({{ asset('landing/images/gallery-1.jpg') }});">
-                        </a>
-                        <div class="text py-4 d-block">
-                            <div class="meta">
-                                <div><a href="{{ route('detail.berita') }}">9 Oktober 2021</a></div>
-                                <div><a href="{{ route('detail.berita') }}">Admin</a></div>
-                                <div><a href="{{ route('detail.berita') }}" class="meta-chat"><span
-                                            class="icon-chat"></span> 3</a>
-                                </div>
-                            </div>
-                            <h3 class="heading mt-2"><a href="{{ route('detail.berita') }}">Lorem, ipsum dolor.</a>
-                            </h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, repellendus!</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="{{ route('detail.berita') }}" class="block-20"
-                            style="background-image: url({{ asset('landing/images/gallery-3.jpg') }});">
-                        </a>
-                        <div class="text py-4 d-block">
-                            <div class="meta">
-                                <div><a href="{{ route('detail.berita') }}">9 Oktober 2021</a></div>
-                                <div><a href="{{ route('detail.berita') }}">Admin</a></div>
-                                <div><a href="{{ route('detail.berita') }}" class="meta-chat"><span
-                                            class="icon-chat"></span> 3</a>
-                                </div>
-                            </div>
-                            <h3 class="heading mt-2"><a href="{{ route('detail.berita') }}">Lorem, ipsum dolor.</a>
-                            </h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, repellendus!</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="{{ route('detail.berita') }}" class="block-20"
-                            style="background-image: url({{ asset('landing/images/gallery-4.jpg') }});">
-                        </a>
-                        <div class="text py-4 d-block">
-                            <div class="meta">
-                                <div><a href="{{ route('detail.berita') }}">9 Oktober 2021</a></div>
-                                <div><a href="{{ route('detail.berita') }}">Admin</a></div>
-                                <div><a href="{{ route('detail.berita') }}" class="meta-chat"><span
-                                            class="icon-chat"></span> 3</a>
-                                </div>
-                            </div>
-                            <h3 class="heading mt-2"><a href="{{ route('detail.berita') }}">Lorem, ipsum dolor.</a>
-                            </h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, repellendus!</p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <div class="row mt-5">
-                <div class="col text-center">
+                <div class="col">
                     <div class="block-27">
-                        <ul>
-                            <li><a href="#">&lt;</a></li>
-                            <li class="active"><span>1</span></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">&gt;</a></li>
-                        </ul>
+                        {{ $blogs->links('pagination::default') }}
                     </div>
                 </div>
             </div>

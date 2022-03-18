@@ -1,19 +1,20 @@
 @extends('layouts.dashboard.base')
 
-@section('title', 'Persediaan')
+@section('title', 'Berita')
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('dashboard/modules/datatables/datatables.min.css') }}">
     <link rel="stylesheet"
         href="{{ asset('dashboard/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dashboard/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dashboard/modules/summernote/summernote-bs4.css') }}">
 @endpush
 
 @section('content')
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Persediaan</h1>
+                <h1>Berita</h1>
             </div>
 
             <div class="section-body">
@@ -21,42 +22,43 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Tabel Persediaan</h4>
+                                <h4>Tabel Berita</h4>
                                 <div class="card-header-action">
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#create-raw-stock">Tambah
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#create-blog">Tambah
                                         Data</a>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped" id="table-raw-stock">
+                                    <table class="table table-striped" id="table-blog">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
-                                                <th>Bahan</th>
-                                                <th>Berat</th>
+                                                <th>Tanggal</th>
+                                                <th>Judul</th>
+                                                <th>Deskripsi</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Ceri Merah</td>
-                                                <td>100 kg</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Olahan Kopi Basah</td>
-                                                <td>200 kg</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
-                                                </td>
-                                            </tr>
+                                            @foreach ($blogs as $i => $blog)
+                                                <tr>
+                                                    <td>{{ $i+1 }}</td>
+                                                    <td>{{ $blog->updated_at }}</td>
+                                                    <td>{{ $blog->title }}</td>
+                                                    <td>{{ $blog->excerpt }}</td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <a href="{{ route('ketua.berita.edit', $blog->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                                            <form action="{{ route('ketua.berita.destroy', $blog->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button class="btn btn-danger" type="submit"><i class="fa fa-times"></i></button>
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -66,7 +68,7 @@
                 </div>
             </div>
         </section>
-        @include('dashboard.anggota.raw-stock.create')
+        @include('dashboard.ketua.blog.create')
     </div>
 @endsection
 
@@ -76,14 +78,15 @@
     <script src="{{ asset('dashboard/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
     <script src="{{ asset('dashboard/modules/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/page/modules-datatables.js') }}"></script>
+    <script src="{{ asset('dashboard/modules/summernote/summernote-bs4.min.js') }}"></script>
 
     <script>
         "use strict"
 
-        $("#table-raw-stock").dataTable({
+        $("#table-blog").dataTable({
             "columnDefs": [{
                 "sortable": false,
-                "targets": [1, 2, 3]
+                "targets": [1, 2, 3, 4]
             }]
         });
     </script>
