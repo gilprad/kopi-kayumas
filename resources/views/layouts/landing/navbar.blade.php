@@ -23,7 +23,7 @@
                 @auth
                 <li class="nav-item">
                     @role('admin')
-                        <a href="{{ route('admin.user') }}" class="nav-link">Dashboard</a>
+                        <a href="{{ route('admin.pengguna.index') }}" class="nav-link">Dashboard</a>
                     @elserole('ketua')
                         <a href="{{ route('ketua.beranda') }}" class="nav-link">Dashboard</a>
                     @elserole('anggota')

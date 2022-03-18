@@ -119,10 +119,10 @@ class BlogController extends Controller
             ]);
         } else {
             $blog->update([
-                'title'     => $request->title,
-                'slug'      => strtolower($request->title) . time(),
-                'contents'  => $request->contents,
-                'excerpt'   => Str::words(strip_tags(html_entity_decode($request->contents)), 8)
+                'title'    => $request->title,
+                'slug'     => strtolower($request->title) . time(),
+                'contents' => $request->contents,
+                'excerpt'  => Str::words(strip_tags(html_entity_decode($request->contents)), 8)
             ]);
         }
 

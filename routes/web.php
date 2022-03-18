@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 use App\Http\Controllers\Ketua\BlogController as KetuaBlogController;
 
@@ -42,10 +43,7 @@ Route::get('/keranjang', function () {
 Route::get('/checkout', [LandingController::class, 'checkout'])->name('checkout');
 
 Route::prefix('admin')->as('admin.')->middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/pengguna', function () {
-        return view('dashboard.admin.user.index');
-    })->name('user');
-
+    Route::resource('pengguna', UserController::class)->except('create');
     Route::resource('berita', AdminBlogController::class)->except(['create', 'show']);
 });
 

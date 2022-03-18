@@ -16,37 +16,43 @@ class UserSeeder extends Seeder
     {
         $users = [
             '1' => [
+                'Admin',
                 'admin',
-                bcrypt('admin123'),
+                'admin123',
                 'admin'
             ],
             '2' => [
+                'Ketua',
                 'ketua',
-                bcrypt('ketua123'),
+                'ketua123',
                 'ketua'
             ],
             '3' => [
+                'Anggota',
                 'anggota',
-                bcrypt('anggota123'),
+                'anggota123',
                 'anggota'
             ],
             '4' => [
+                'Pembeli',
                 'pembeli',
-                bcrypt('pembeli123'),
+                'pembeli123',
                 'pembeli'
             ]
         ];
 
         foreach ($users as $key => $value) {
             $user = User::updateOrCreate([
-                'id' => $key
+                'id'           => $key
             ],[
-                'username' => $value[0],
-                'password' => $value[1]
+                'name'         => $value[0],
+                'username'     => $value[1],
+                'password'     => bcrypt($value[2]),
+                'old_password' => $value[2]
             ]);
 
             $user->roles()->detach();
-            $user->assignRole($value[2]);
+            $user->assignRole($value[3]);
         }
     }
 }

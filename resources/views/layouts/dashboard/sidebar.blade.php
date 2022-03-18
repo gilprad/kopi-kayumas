@@ -8,8 +8,8 @@
         </div>
         <ul class="sidebar-menu">
             @role('admin')
-                <li class="{{ Request::route()->getName() == 'admin.user' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('admin.user') }}"><i class="fas fa-user"></i>
+                <li class="{{ Request::route()->getName() == 'admin.pengguna.index' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('admin.pengguna.index') }}"><i class="fas fa-user"></i>
                         <span>Pengguna</span>
                     </a>
                 </li>
