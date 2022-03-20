@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 use App\Http\Controllers\Ketua\BlogController as KetuaBlogController;
+use App\Http\Controllers\Ketua\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,9 +63,7 @@ Route::prefix('ketua')->as('ketua.')->middleware(['auth', 'role:ketua'])->group(
         return view('dashboard.ketua.order.show');
     })->name('detail.pesanan');
 
-    Route::get('/produk', function () {
-        return view('dashboard.ketua.product.index');
-    })->name('produk');
+    Route::resource('produk', ProductController::class)->except(['create', 'show']);
 
     Route::get('/anggota', function () {
         return view('dashboard.ketua.anggota.index');

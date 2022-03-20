@@ -119,10 +119,10 @@ class BlogController extends Controller
             ]);
         } else {
             $blog->update([
-                'title'     => $request->title,
-                'slug'      => strtolower($request->title) . time(),
-                'contents'  => $request->contents,
-                'excerpt'   => Str::words(strip_tags(html_entity_decode($request->contents)), 8)
+                'title'    => $request->title,
+                'slug'     => strtolower($request->title) . time(),
+                'contents' => $request->contents,
+                'excerpt'  => Str::words(strip_tags(html_entity_decode($request->contents)), 8)
             ]);
         }
 
@@ -141,6 +141,6 @@ class BlogController extends Controller
         Storage::disk('local')->delete('public/thumbnail/' . $blog->thumbnail);
         $blog->delete();
 
-        return redirect()->back()->with(['success' => 'Data berhasil dihapus']);
+        return redirect()->back()->with('success', 'Data berhasil dihapus');
     }
 }

@@ -7,6 +7,7 @@
     <link rel="stylesheet"
         href="{{ asset('dashboard/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dashboard/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dashboard/modules/summernote/summernote-bs4.css') }}">
 @endpush
 
 @section('content')
@@ -42,58 +43,27 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td><img src="{{ asset('landing/images/menu-1.jpg') }}" width="100"
-                                                        height="100" alt=""></td>
-                                                <td>Kopi Maeja</td>
-                                                <td>Rp50.000</td>
-                                                <td>10</td>
-                                                <td>0</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td><img src="{{ asset('landing/images/menu-2.jpg') }}" width="100"
-                                                        height="100" alt=""></td>
-                                                <td>Kopi Mulya</td>
-                                                <td>Rp50.000</td>
-                                                <td>9</td>
-                                                <td>1</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td><img src="{{ asset('landing/images/menu-3.jpg') }}" width="100"
-                                                        height="100" alt=""></td>
-                                                <td>Kopi Talimas</td>
-                                                <td>Rp50.000</td>
-                                                <td>10</td>
-                                                <td>0</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td><img src="{{ asset('landing/images/menu-4.jpg') }}" width="100"
-                                                        height="100" alt=""></td>
-                                                <td>Kopi Mas Bro</td>
-                                                <td>Rp50.000</td>
-                                                <td>9</td>
-                                                <td>1</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
-                                                </td>
-                                            </tr>
+                                            @foreach ($products as $i => $product)
+                                                <tr>
+                                                    <td>{{ $i+1 }}</td>
+                                                    <td><img src="{{ asset('storage/product/'.$product->image) }}" width="100"
+                                                            height="100" alt=""></td>
+                                                    <td>{{ $product->name }}</td>
+                                                    <td>Rp{{ number_format($product->price) }}</td>
+                                                    <td>10</td>
+                                                    <td>0</td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <a href="{{ route('ketua.produk.edit', $product->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                                            <form action="{{ route('ketua.produk.destroy', $product->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button class="btn btn-danger" type="submit"><i class="fa fa-times"></i></button>
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -113,6 +83,7 @@
     <script src="{{ asset('dashboard/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
     <script src="{{ asset('dashboard/modules/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/page/modules-datatables.js') }}"></script>
+    <script src="{{ asset('dashboard/modules/summernote/summernote-bs4.min.js') }}"></script>
 
     <script>
         "use strict"

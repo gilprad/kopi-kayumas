@@ -7,29 +7,44 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form>
+            <form action="{{ route('ketua.produk.store') }}" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    @csrf
                     <div class="form-group">
-                        <label>Nama</label>
-                        <input type="text" class="form-control">
+                        <label for="image">Gambar</label>
+                        <input id="image" type="file" class="form-control{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image" value="{{ old('image') }}" required>
+                        <div class="invalid-feedback">
+                            {{ $errors->first('image') }}
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>Harga</label>
-                        <input type="text" class="form-control">
+                        <label for="name">Nama</label>
+                        <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required>
+                        <div class="invalid-feedback">
+                            {{ $errors->first('name') }}
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>Stok</label>
-                        <input type="number" class="form-control">
+                        <label for="description">Deskripsi</label>
+                        <div class="input-group">
+                            <textarea id="description" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }} summernote" name="description" required>{{ old('description') }}</textarea>
+                            <div class="invalid-feedback">
+                                {{ $errors->first('description') }}
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>Foto</label>
-                        <input type="file" class="form-control">
+                        <label for="price">Harga</label>
+                        <input id="price" type="number" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" name="price" value="{{ old('price') }}" required>
+                        <div class="invalid-feedback">
+                            {{ $errors->first('price') }}
+                        </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer bg-whitesmoke br">
-                <button type="button" class="btn btn-primary">Simpan</button>
-            </div>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
