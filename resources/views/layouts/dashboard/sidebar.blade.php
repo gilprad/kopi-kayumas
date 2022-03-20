@@ -34,8 +34,8 @@
                         <span>Pesanan</span>
                     </a>
                 </li>
-                <li class="{{ Request::route()->getName() == 'ketua.produk' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('ketua.produk') }}"><i class="fas fa-box"></i>
+                <li class="{{ Request::route()->getName() == 'ketua.produk.index' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('ketua.produk.index') }}"><i class="fas fa-box"></i>
                         <span>Produk</span>
                     </a>
                 </li>
