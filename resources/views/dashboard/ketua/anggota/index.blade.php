@@ -33,28 +33,31 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
-                                                <th>Foto</th>
                                                 <th>Nama</th>
                                                 <th>Alamat</th>
                                                 <th>Nomor Telepon</th>
-                                                <th>Email</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td><img src="{{ asset('landing/images/person_1.jpg') }}" width="100"
-                                                        height="100" alt=""></td>
-                                                <td>Herman</td>
-                                                <td>Jalan PTPN XII No. 1, Desa Kayumas</td>
-                                                <td>082123456798</td>
-                                                <td>herman@email.com</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
-                                                </td>
-                                            </tr>
+                                            @foreach ($users as $i => $user)
+                                                <tr>
+                                                    <td>{{ $i+1 }}</td>
+                                                    <td>{{ $user->name }}</td>
+                                                    <td>{{ $user->profile !== null ? $user->profile->address : '' }}</td>
+                                                    <td>{{ $user->profile !== null ? $user->profile->phone : '' }}</td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <a href="{{ route('ketua.anggota.edit', $user->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                                            <form action="{{ route('ketua.anggota.destroy', $user->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button class="btn btn-danger" type="submit"><i class="fa fa-times"></i></button>
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -81,7 +84,7 @@
         $("#table-anggota").dataTable({
             "columnDefs": [{
                 "sortable": false,
-                "targets": [1, 2, 3, 4, 5, 6]
+                "targets": [1, 2, 3, 4]
             }]
         });
     </script>

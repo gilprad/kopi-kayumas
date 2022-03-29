@@ -1,12 +1,12 @@
 @extends('layouts.dashboard.base')
 
-@section('title', 'Ubah Pengguna')
+@section('title', 'Ubah Anggota')
 
 @section('content')
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Ubah Pengguna</h1>
+                <h1>Ubah Anggota</h1>
             </div>
 
             <div class="section-body">
@@ -14,17 +14,9 @@
                     <div class="col-8">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('admin.pengguna.update', $user->id) }}" method="POST">
+                                <form action="{{ route('ketua.anggota.update', $user->id) }}" method="POST">
                                     @csrf
                                     @method('PATCH')
-                                    <div class="form-group">
-                                        <label for="role">Role</label>
-                                        <select class="form-control" name="role">
-                                            @foreach ($roles as $role)
-                                                <option value="{{ $role->name }}" {{ $user->roles->contains($role->id) ? 'selected' : '' }}>{{ $role->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
                                     <div class="form-group">
                                         <label for="name">Nama</label>
                                         <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ $user->name }}" required>

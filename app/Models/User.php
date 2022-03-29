@@ -34,4 +34,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class, 'user_id', 'id');
     }
+
+    public function ketua()
+    {
+        return $this->belongsTo(User::class, 'ketua_id');
+    }
+
+    public function anggota()
+    {
+        return $this->hasMany(User::class, 'ketua_id');
+    }
 }
