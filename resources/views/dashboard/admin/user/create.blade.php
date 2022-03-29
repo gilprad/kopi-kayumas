@@ -27,14 +27,14 @@
                     </div>
                     <div class="form-group">
                         <label for="address">Alamat</label>
-                        <input id="address" type="text" class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" name="address" value="{{ old('address') }}" required>
+                        <input id="address" type="text" class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" name="address" value="{{ old('address') }}">
                         <div class="invalid-feedback">
                             {{ $errors->first('address') }}
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="phone">Nomor Telepon</label>
-                        <input id="phone" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required>
+                        <input id="phone" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}">
                         <div class="invalid-feedback">
                             {{ $errors->first('phone') }}
                         </div>

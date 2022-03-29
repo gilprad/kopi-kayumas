@@ -39,8 +39,8 @@
                         <span>Produk</span>
                     </a>
                 </li>
-                <li class="{{ Request::route()->getName() == 'ketua.anggota' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('ketua.anggota') }}"><i class="fas fa-user"></i>
+                <li class="{{ Request::route()->getName() == 'ketua.anggota.index' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('ketua.anggota.index') }}"><i class="fas fa-user"></i>
                         <span>Anggota</span>
                     </a>
                 </li>

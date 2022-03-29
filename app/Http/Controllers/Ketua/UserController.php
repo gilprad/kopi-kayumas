@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Ketua;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -17,10 +17,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where('id', '!=', Auth::id())->orderBy('created_at', 'ASC')->paginate(10);
-        $roles = Role::where('name', '!=', 'admin')->get();
+        $users = Auth::user()->anggota;
 
-        return view('dashboard.admin.user.index', compact('users', 'roles'));
+        return view('dashboard.ketua.anggota.index', compact('users'));
     }
 
     /**
@@ -53,10 +52,11 @@ class UserController extends Controller
             'name'         => $request->name,
             'username'     => $request->username,
             'password'     => bcrypt($request->password),
-            'old_password' => $request->password
+            'old_password' => $request->password,
+            'ketua_id'     => Auth::id()
         ]);
 
-        $user->assignRole($request->role);
+        $user->assignRole('anggota');
 
         $user->profile()->create([
             'address' => $request->address,
@@ -86,9 +86,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $roles = Role::where('name', '!=', 'admin')->get();
 
-        return view('dashboard.admin.user.edit', compact('user', 'roles'));
+        return view('dashboard.ketua.anggota.edit', compact('user'));
     }
 
     /**
@@ -117,8 +116,6 @@ class UserController extends Controller
             'old_password' => $request->password
         ]);
 
-        $user->syncRoles($request->role);
-
         if (empty($user->profile->address) && empty($user->profile->phone)) {
             $user->profile()->create([
                 'address' => $request->address,
@@ -131,7 +128,7 @@ class UserController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.pengguna.index')->with('success', 'Data berhasil diubah');
+        return redirect()->route('ketua.anggota.index')->with('success', 'Data berhasil diubah');
     }
 
     /**

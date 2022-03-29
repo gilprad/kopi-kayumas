@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('old_password');
+            $table->integer('ketua_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

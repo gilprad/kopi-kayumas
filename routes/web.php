@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Ketua\UserController as KetuaUserController;
 use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 use App\Http\Controllers\Ketua\BlogController as KetuaBlogController;
 use App\Http\Controllers\Ketua\ProductController;
@@ -44,7 +45,7 @@ Route::get('/keranjang', function () {
 Route::get('/checkout', [LandingController::class, 'checkout'])->name('checkout');
 
 Route::prefix('admin')->as('admin.')->middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('pengguna', UserController::class)->except('create');
+    Route::resource('pengguna', AdminUserController::class)->except('create');
     Route::resource('berita', AdminBlogController::class)->except(['create', 'show']);
 });
 
@@ -64,10 +65,7 @@ Route::prefix('ketua')->as('ketua.')->middleware(['auth', 'role:ketua'])->group(
     })->name('detail.pesanan');
 
     Route::resource('produk', ProductController::class)->except(['create', 'show']);
-
-    Route::get('/anggota', function () {
-        return view('dashboard.ketua.anggota.index');
-    })->name('anggota');
+    Route::resource('anggota', KetuaUserController::class)->except('create');
 
     Route::get('/persediaan', function () {
         return view('dashboard.ketua.raw-stock.index');
