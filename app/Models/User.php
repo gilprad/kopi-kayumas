@@ -35,6 +35,11 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class, 'user_id', 'id');
     }
 
+    public function group()
+    {
+        return $this->hasOne(Group::class, 'user_id', 'id');
+    }
+
     public function ketua()
     {
         return $this->belongsTo(User::class, 'ketua_id');
