@@ -119,7 +119,7 @@ class UserController extends Controller
 
         $user->syncRoles($request->role);
 
-        if (empty($user->profile->address) && empty($user->profile->phone)) {
+        if (empty($user->profile)) {
             $user->profile()->create([
                 'address' => $request->address,
                 'phone'   => $request->phone

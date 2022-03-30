@@ -116,7 +116,7 @@ class UserController extends Controller
             'old_password' => $request->password
         ]);
 
-        if (empty($user->profile->address) && empty($user->profile->phone)) {
+        if (empty($user->profile)) {
             $user->profile()->create([
                 'address' => $request->address,
                 'phone'   => $request->phone

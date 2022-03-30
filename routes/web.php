@@ -5,6 +5,7 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Ketua\UserController as KetuaUserController;
+use App\Http\Controllers\Ketua\ProfileController;
 use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 use App\Http\Controllers\Ketua\BlogController as KetuaBlogController;
 use App\Http\Controllers\Ketua\ProductController;
@@ -66,6 +67,8 @@ Route::prefix('ketua')->as('ketua.')->middleware(['auth', 'role:ketua'])->group(
 
     Route::resource('produk', ProductController::class)->except(['create', 'show']);
     Route::resource('anggota', KetuaUserController::class)->except('create');
+    Route::get('profil', [ProfileController::class, 'index'])->name('profile.index');
+    Route::put('profil/{id}', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::get('/persediaan', function () {
         return view('dashboard.ketua.raw-stock.index');
