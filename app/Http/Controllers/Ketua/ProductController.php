@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Ketua;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\Product;
@@ -17,7 +18,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('created_at', 'ASC')->paginate(10);
+        $products = Product::where('group_id', '=', Auth::user()->group->id)->orderBy('created_at', 'ASC')->paginate(10);
 
         return view('dashboard.ketua.product.index', compact('products'));
     }
@@ -58,7 +59,8 @@ class ProductController extends Controller
             'name'        => $request->name,
             'slug'        => strtolower($request->name),
             'description' => $request->description,
-            'price'       => $request->price
+            'price'       => $request->price,
+            'group_id'    => Auth::user()->group->id
         ]);
 
         return redirect()->back()->with('success', 'Data berhasil ditambahkan');

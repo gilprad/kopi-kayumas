@@ -15,4 +15,9 @@ class Group extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'group_id', 'id');
+    }
 }
