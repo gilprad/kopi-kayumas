@@ -13,7 +13,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Persediaan</h1>
+                <h1>Harga Ambil</h1>
             </div>
 
             <div class="section-body">
@@ -25,31 +25,28 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped" id="table-price">
+                                    <table class="table table-striped" id="table-bean-price">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
-                                                <th>Foto</th>
                                                 <th>Nama</th>
                                                 <th>Alamat</th>
                                                 <th>Nomor Telepon</th>
-                                                <th>Email</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td><img src="{{ asset('landing/images/person_1.jpg') }}" width="100"
-                                                        height="100" alt=""></td>
-                                                <td>Herman</td>
-                                                <td>Jalan PTPN XII No. 1, Desa Kayumas</td>
-                                                <td>082123456798</td>
-                                                <td>herman@email.com</td>
-                                                <td>
-                                                    <button class="btn btn-primary" data-toggle="modal" data-target="#show-price">Lihat Harga Ambil</a>
-                                                </td>
-                                            </tr>
+                                            @foreach ($users as $i => $user)
+                                                <tr>
+                                                    <td>{{ $i+1 }}</td>
+                                                    <td>{{ $user->name }}</td>
+                                                    <td>{{ $user->profile !== null ? $user->profile->address : '' }}</td>
+                                                    <td>{{ $user->profile !== null ? $user->profile->phone : '' }}</td>
+                                                    <td>
+                                                        <button id="btn-bean-price" class="btn btn-primary" data-toggle="modal" data-id="{{ $user->id }}">Lihat Harga Ambil</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -73,11 +70,31 @@
     <script>
         "use strict"
 
-        $("#table-price").dataTable({
+        $("#table-bean-price").dataTable({
             "columnDefs": [{
                 "sortable": false,
-                "targets": [1, 2, 3, 4, 5, 6]
+                "targets": [1, 2, 3, 4]
             }]
+        });
+
+        $("#btn-bean-price").click(function() {
+            let id = $(this).data("id");
+            $.ajax({
+                method: "GET",
+                url: "/anggota/harga/" + id,
+            }).done(function(result) {
+                $("#show-bean-price").modal("show");
+                $("#table-bean-price-detail").find("tbody").empty();
+                $.each(result, function(index, item) {
+                    $("#table-bean-price-detail").find("tbody").append(
+                        `<tr>` +
+                            `<td>` + item.id + `</td>` +
+                            `<td>` + item.name + `</td>` +
+                            `<td>Rp` + item.price + `/kg</td>` +
+                        `</tr>`
+                    );
+                });
+            });
         });
     </script>
 @endpush

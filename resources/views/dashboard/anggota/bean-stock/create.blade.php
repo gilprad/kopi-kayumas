@@ -1,13 +1,13 @@
-<div class="modal fade" tabindex="-1" role="dialog" id="create-price">
+<div class="modal fade" tabindex="-1" role="dialog" id="create-bean-stock">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah Harga Ambil</h5>
+                <h5 class="modal-title">Tambah Persediaan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('ketua.harga.store') }}" method="POST">
+            <form action="{{ route('anggota.persediaan.store') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
@@ -18,10 +18,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="price">Harga Ambil</label>
-                        <input id="price" type="number" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" name="price" value="{{ old('price') }}" required>
+                        <label for="weight">Berat</label>
+                        <input id="weight" type="number" class="form-control{{ $errors->has('weight') ? ' is-invalid' : '' }}" name="weight" value="{{ old('weight') }}" required>
                         <div class="invalid-feedback">
-                            {{ $errors->first('price') }}
+                            {{ $errors->first('weight') }}
                         </div>
                     </div>
                 </div>

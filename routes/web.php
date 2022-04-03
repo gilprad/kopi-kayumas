@@ -9,6 +9,10 @@ use App\Http\Controllers\Ketua\ProfileController;
 use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 use App\Http\Controllers\Ketua\BlogController as KetuaBlogController;
 use App\Http\Controllers\Ketua\ProductController;
+use App\Http\Controllers\Ketua\BeanStockController as KetuaBeanStockController;
+use App\Http\Controllers\Ketua\BeanPriceController as KetuaBeanPriceController;
+use App\Http\Controllers\Anggota\BeanStockController as AnggotaBeanStockController;
+use App\Http\Controllers\Anggota\BeanPriceController as AnggotaBeanPriceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,27 +70,16 @@ Route::prefix('ketua')->as('ketua.')->middleware(['auth', 'role:ketua'])->group(
     })->name('detail.pesanan');
 
     Route::resource('produk', ProductController::class)->except(['create', 'show']);
-    Route::resource('anggota', KetuaUserController::class)->except('create');
+    Route::resource('anggota', KetuaUserController::class)->except('create', 'show');
     Route::get('profil', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('profil/{id}', [ProfileController::class, 'update'])->name('profile.update');
-
-    Route::get('/persediaan', function () {
-        return view('dashboard.ketua.raw-stock.index');
-    })->name('persediaan');
-
-    Route::get('/harga', function () {
-        return view('dashboard.ketua.price.index');
-    })->name('harga');
+    Route::resource('persediaan', KetuaBeanStockController::class)->except(['create', 'store', 'edit', 'update', 'delete']);
+    Route::resource('harga', KetuaBeanPriceController::class)->except(['create', 'show']);
 });
 
 Route::prefix('anggota')->as('anggota.')->middleware(['auth', 'role:anggota'])->group(function () {
-    Route::get('/persediaan', function () {
-        return view('dashboard.anggota.raw-stock.index');
-    })->name('persediaan');
-
-    Route::get('/harga', function () {
-        return view('dashboard.anggota.price.index');
-    })->name('harga');
+    Route::resource('persediaan', AnggotaBeanStockController::class)->except(['create', 'show']);
+    Route::resource('harga', AnggotaBeanPriceController::class)->except(['create', 'store', 'edit', 'update', 'delete']);
 });
 
 Route::prefix('pembeli')->as('pembeli.')->middleware(['auth', 'role:pembeli'])->group(function () {

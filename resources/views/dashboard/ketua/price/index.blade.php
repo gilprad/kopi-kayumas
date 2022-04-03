@@ -39,24 +39,23 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Ceri Merah</td>
-                                                <td>Rp12.500/kg</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Olahan Kopi Basah</td>
-                                                <td>Rp26.500/kg</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
-                                                </td>
-                                            </tr>
+                                            @foreach ($bean_prices as $i => $bean_price)
+                                                <tr>
+                                                    <td>{{ $i+1 }}</td>
+                                                    <td>{{ $bean_price->name }}</td>
+                                                    <td>{{ $bean_price->price }}</td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <a href="{{ route('ketua.harga.edit', $bean_price->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                                            <form action="{{ route('ketua.harga.destroy', $bean_price->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button class="btn btn-danger" type="submit"><i class="fa fa-times"></i></button>
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>

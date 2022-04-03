@@ -1,4 +1,4 @@
-<div class="modal fade" tabindex="-1" role="dialog" id="show-price">
+<div class="modal fade" tabindex="-1" role="dialog" id="show-bean-price">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table id="table-bean-price-detail" class="table table-striped">
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
@@ -18,16 +18,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Ceri Merah</td>
-                                <td>Rp12.500/kg</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Olahan Kopi Basah</td>
-                                <td>Rp26.500/kg</td>
-                            </tr>
+                            
                         </tbody>
                     </table>
                 </div>
