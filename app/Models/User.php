@@ -49,4 +49,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(User::class, 'ketua_id');
     }
+
+    public function bean_stocks()
+    {
+        return $this->hasMany(BeanStock::class, 'user_id', 'id');
+    }
+
+    public function bean_prices()
+    {
+        return $this->hasMany(BeanPrice::class, 'user_id', 'id');
+    }
 }

@@ -44,24 +44,24 @@
                         <span>Anggota</span>
                     </a>
                 </li>
-                <li class="{{ Request::route()->getName() == 'ketua.persediaan' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('ketua.persediaan') }}"><i class="fas fa-warehouse"></i>
+                <li class="{{ Request::route()->getName() == 'ketua.persediaan.index' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('ketua.persediaan.index') }}"><i class="fas fa-warehouse"></i>
                         <span>Persediaan</span>
                     </a>
                 </li>
-                <li class="{{ Request::route()->getName() == 'ketua.harga' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('ketua.harga') }}"><i class="fas fa-money-bill"></i>
+                <li class="{{ Request::route()->getName() == 'ketua.harga.index' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('ketua.harga.index') }}"><i class="fas fa-money-bill"></i>
                         <span>Harga Ambil</span>
                     </a>
                 </li>
             @elserole('anggota')
-                <li class="{{ Request::route()->getName() == 'anggota.persediaan' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('anggota.persediaan') }}"><i class="fas fa-warehouse"></i>
+                <li class="{{ Request::route()->getName() == 'anggota.persediaan.index' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('anggota.persediaan.index') }}"><i class="fas fa-warehouse"></i>
                         <span>Persediaan</span>
                     </a>
                 </li>
-                <li class="{{ Request::route()->getName() == 'anggota.harga' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('anggota.harga') }}"><i class="fas fa-money-bill"></i>
+                <li class="{{ Request::route()->getName() == 'anggota.harga.index' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('anggota.harga.index') }}"><i class="fas fa-money-bill"></i>
                         <span>Harga Ambil</span>
                     </a>
                 </li>

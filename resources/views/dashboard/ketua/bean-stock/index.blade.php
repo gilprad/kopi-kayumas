@@ -22,41 +22,31 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4>Tabel Persediaan</h4>
-                                <div class="card-header-action">
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#create-raw-stock">Tambah
-                                        Data</a>
-                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped" id="table-raw-stock">
+                                    <table class="table table-striped" id="table-bean-stock">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
-                                                <th>Bahan</th>
-                                                <th>Berat</th>
+                                                <th>Nama</th>
+                                                <th>Alamat</th>
+                                                <th>Nomor Telepon</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Ceri Merah</td>
-                                                <td>100 kg</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Olahan Kopi Basah</td>
-                                                <td>200 kg</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
-                                                </td>
-                                            </tr>
+                                            @foreach ($users as $i => $user)
+                                                <tr>
+                                                    <td>{{ $i+1 }}</td>
+                                                    <td>{{ $user->name }}</td>
+                                                    <td>{{ $user->profile !== null ? $user->profile->address : '' }}</td>
+                                                    <td>{{ $user->profile !== null ? $user->profile->phone : '' }}</td>
+                                                    <td>
+                                                        <button id="btn-bean-stock" class="btn btn-primary" data-toggle="modal" data-id="{{ $user->id }}">Lihat Persediaan</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -66,7 +56,7 @@
                 </div>
             </div>
         </section>
-        @include('dashboard.anggota.raw-stock.create')
+        @include('dashboard.ketua.bean-stock.show')
     </div>
 @endsection
 
@@ -80,11 +70,31 @@
     <script>
         "use strict"
 
-        $("#table-raw-stock").dataTable({
+        $("#table-bean-stock").dataTable({
             "columnDefs": [{
                 "sortable": false,
-                "targets": [1, 2, 3]
+                "targets": [1, 2, 3, 4]
             }]
+        });
+
+        $("#btn-bean-stock").click(function() {
+            let id = $(this).data("id");
+            $.ajax({
+                method: "GET",
+                url: "/ketua/persediaan/" + id,
+            }).done(function(result) {
+                $("#show-bean-stock").modal("show");
+                $("#table-bean-stock-detail").find("tbody").empty();
+                $.each(result, function(index, item) {
+                    $("#table-bean-stock-detail").find("tbody").append(
+                        `<tr>` +
+                            `<td>` + item.id + `</td>` +
+                            `<td>` + item.name + `</td>` +
+                            `<td>` + item.weight + ` kg</td>` +
+                        `</tr>`
+                    );
+                });
+            });
         });
     </script>
 @endpush
