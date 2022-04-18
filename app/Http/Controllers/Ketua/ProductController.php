@@ -59,6 +59,7 @@ class ProductController extends Controller
             'name'        => $request->name,
             'slug'        => strtolower($request->name),
             'description' => $request->description,
+            'excerpt'     => Str::words(strip_tags(html_entity_decode($request->description)), 8),
             'price'       => $request->price,
             'group_id'    => Auth::user()->group->id
         ]);
@@ -119,6 +120,7 @@ class ProductController extends Controller
                 'name'        => $request->name,
                 'slug'        => strtolower($request->name),
                 'description' => $request->description,
+                'excerpt'     => Str::words(strip_tags(html_entity_decode($request->description)), 8),
                 'price'       => $request->price
             ]);
         } else {
@@ -126,6 +128,7 @@ class ProductController extends Controller
                 'name'        => $request->name,
                 'slug'        => strtolower($request->name),
                 'description' => $request->description,
+                'excerpt'     => Str::words(strip_tags(html_entity_decode($request->description)), 8),
                 'price'       => $request->price
             ]);
         }
