@@ -37,33 +37,35 @@
         </div>
     </section>
 
-    <section class="ftco-section">
-        <div class="container">
-            <div class="row d-flex">
-                @foreach ($blogs as $blog)
-                    <div class="col-md-4 d-flex ftco-animate">
-                        <div class="w-100 blog-entry align-self-stretch">
-                            <a href="{{ route('detail.berita', $blog->slug) }}" class="block-20"
-                                style="background-image: url({{ asset('storage/thumbnail/'.$blog->thumbnail) }});">
-                            </a>
-                            <div class="text py-4 d-block">
-                                <div class="meta">
-                                    <div><a href="{{ route('detail.berita', $blog->slug) }}">{{ $blog->created_at }}</a></div>
+    @if ($blogs->isNotEmpty())
+        <section class="ftco-section">
+            <div class="container">
+                <div class="row d-flex">
+                    @foreach ($blogs as $blog)
+                        <div class="col-md-4 d-flex ftco-animate">
+                            <div class="w-100 blog-entry align-self-stretch">
+                                <a href="{{ route('detail.berita', $blog->slug) }}" class="block-20"
+                                    style="background-image: url({{ asset('storage/thumbnail/'.$blog->thumbnail) }});">
+                                </a>
+                                <div class="text py-4 d-block">
+                                    <div class="meta">
+                                        <div><a href="{{ route('detail.berita', $blog->slug) }}">{{ $blog->created_at }}</a></div>
+                                    </div>
+                                    <h3 class="heading mt-2"><a href="{{ route('detail.berita', $blog->slug) }}">{{ $blog->title }}</a></h3>
+                                    <p>{{ $blog->excerpt }}</p>
                                 </div>
-                                <h3 class="heading mt-2"><a href="{{ route('detail.berita', $blog->slug) }}">{{ $blog->title }}</a></h3>
-                                <p>{{ $blog->excerpt }}</p>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-            </div>
-            <div class="row mt-5">
-                <div class="col">
-                    <div class="block-27">
-                        {{ $blogs->links('pagination::default') }}
+                    @endforeach
+                </div>
+                <div class="row mt-5">
+                    <div class="col">
+                        <div class="block-27">
+                            {{ $blogs->links('pagination::default') }}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 @endsection

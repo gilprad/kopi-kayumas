@@ -240,36 +240,38 @@
         </div>
     </section>
 
-    <section class="ftco-section">
-        <div class="container">
-            <div class="row justify-content-center mb-5 pb-3">
-                <div class="col-md-7 heading-section ftco-animate text-center">
-                    <h2 class="mb-4">Berita Terbaru</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse magnam ea corporis neque repellat
-                        impedit tenetur magni hic quaerat dicta!</p>
+    @if ($blogs->isNotEmpty())
+        <section class="ftco-section">
+            <div class="container">
+                <div class="row justify-content-center mb-5 pb-3">
+                    <div class="col-md-7 heading-section ftco-animate text-center">
+                        <h2 class="mb-4">Berita Terbaru</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse magnam ea corporis neque repellat
+                            impedit tenetur magni hic quaerat dicta!</p>
+                    </div>
                 </div>
-            </div>
-            <div class="row d-flex">
-                @foreach ($blogs as $blog)
-                    <div class="col-md-4 d-flex ftco-animate">
-                        <div class="w-100 blog-entry align-self-stretch">
-                            <a href="{{ route('detail.berita', $blog->slug) }}" class="block-20"
-                                style="background-image: url({{ url('/storage/thumbnail/' . $blog->thumbnail) }});">
-                            </a>
-                            <div class="text py-4 d-block">
-                                <div class="meta">
-                                    <div><a href="{{ route('detail.berita', $blog->slug) }}">{{ $blog->created_at }}</a></div>
+                <div class="row d-flex">
+                    @foreach ($blogs as $blog)
+                        <div class="col-md-4 d-flex ftco-animate">
+                            <div class="w-100 blog-entry align-self-stretch">
+                                <a href="{{ route('detail.berita', $blog->slug) }}" class="block-20"
+                                    style="background-image: url({{ url('/storage/thumbnail/' . $blog->thumbnail) }});">
+                                </a>
+                                <div class="text py-4 d-block">
+                                    <div class="meta">
+                                        <div><a href="{{ route('detail.berita', $blog->slug) }}">{{ $blog->created_at }}</a></div>
+                                    </div>
+                                    <h3 class="heading mt-2"><a href="{{ route('detail.berita', $blog->slug) }}">{{ $blog->title }}</a>
+                                    </h3>
+                                    <p>{{ $blog->excerpt }}</p>
                                 </div>
-                                <h3 class="heading mt-2"><a href="{{ route('detail.berita', $blog->slug) }}">{{ $blog->title }}</a>
-                                </h3>
-                                <p>{{ $blog->excerpt }}</p>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 
     <section class="ftco-section img" id="ftco-testimony"
         style="background-image: url({{ asset('landing/images/bg_1.jpg') }});" data-stellar-background-ratio="0.5">
