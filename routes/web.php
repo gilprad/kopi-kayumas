@@ -31,9 +31,7 @@ Route::get('/berita', [LandingController::class, 'blog'])->name('berita');
 
 Route::get('/berita/{slug}', [LandingController::class, 'blogDetail'])->name('detail.berita');
 
-Route::get('/toko', function () {
-    return view('landing.shop');
-})->name('toko');
+Route::get('/toko', [LandingController::class, 'product'])->name('toko');
 
 Route::get('/toko/detail', function () {
     return view('landing.shop-detail');

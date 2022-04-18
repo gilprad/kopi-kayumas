@@ -15,7 +15,7 @@
                         <p class="mb-4 mb-md-5">Cita rasa kopi terbaik dari Desa Kayumas, Kabupaten Situbondo.<br>Surga
                             tersembunyi di ujung timur Pulau Jawa</p>
                         <p>
-                            <a href="{{ route('detail.toko') }}"
+                            <a href="{{ route('toko') }}"
                                 class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Lihat Produk</a>
                         </p>
                     </div>
@@ -97,7 +97,7 @@
                         <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum,
                             voluptatibus ipsa, molestiae expedita minus, delectus dolorum magni officia ex a aliquid
                             impedit. Exercitationem temporibus minima mollitia fugiat alias perspiciatis necessitatibus.</p>
-                        <p><a href="{{ route('detail.toko') }}"
+                        <p><a href="{{ route('toko') }}"
                                 class="btn btn-primary btn-outline-primary px-4 py-3">Lihat Selengkapnya</a></p>
                     </div>
                 </div>
@@ -182,72 +182,36 @@
         </div>
     </section>
 
-    <section class="ftco-section">
-        <div class="container">
-            <div class="row justify-content-center mb-5 pb-3">
-                <div class="col-md-7 heading-section ftco-animate text-center">
-                    <span class="subheading">Temukan</span>
-                    <h2 class="mb-4">Rekomendasi Terbaik Kami</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet voluptas ea aspernatur iste, fugiat
-                        ipsum fuga enim distinctio vero deserunt.</p>
+    @if($products->isNotEmpty())
+        <section class="ftco-section">
+            <div class="container">
+                <div class="row justify-content-center mb-5 pb-3">
+                    <div class="col-md-7 heading-section ftco-animate text-center">
+                        <span class="subheading">Temukan</span>
+                        <h2 class="mb-4">Rekomendasi Terbaik Kami</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet voluptas ea aspernatur iste, fugiat
+                            ipsum fuga enim distinctio vero deserunt.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    @foreach ($products as $product)
+                        <div class="col-md-3">
+                            <div class="menu-entry">
+                                <a href="{{ route('detail.toko') }}" class="img"
+                                    style="background-image: url({{ asset('landing/images/menu-4.jpg') }});"></a>
+                                <div class="text text-center pt-4">
+                                    <h3><a href="{{ route('detail.toko') }}">Kopi Mas Bro</a></h3>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                    <p class="price"><span>Rp50.000</span></p>
+                                    <p><a href="#" class="btn btn-block btn-primary py-3 px-5">Tambah ke Keranjang</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="menu-entry">
-                        <a href="{{ route('detail.toko') }}" class="img"
-                            style="background-image: url({{ asset('landing/images/menu-1.jpg') }});"></a>
-                        <div class="text text-center pt-4">
-                            <h3><a href="{{ route('detail.toko') }}">Kopi Maeja</a></h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                            <p class="price"><span>Rp50.000</span></p>
-                            <p><a href="{{ route('keranjang') }}" class="btn btn-primary btn-outline-primary">Tambah ke
-                                    Keranjang</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="menu-entry">
-                        <a href="{{ route('detail.toko') }}" class="img"
-                            style="background-image: url({{ asset('landing/images/menu-2.jpg') }});"></a>
-                        <div class="text text-center pt-4">
-                            <h3><a href="{{ route('detail.toko') }}">Kopi Mulya</a></h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                            <p class="price"><span>Rp50.000</span></p>
-                            <p><a href="{{ route('keranjang') }}" class="btn btn-primary btn-outline-primary">Tambah ke
-                                    Keranjang</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="menu-entry">
-                        <a href="{{ route('detail.toko') }}" class="img"
-                            style="background-image: url({{ asset('landing/images/menu-3.jpg') }});"></a>
-                        <div class="text text-center pt-4">
-                            <h3><a href="{{ route('detail.toko') }}">Kopi Talimas</a></h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                            <p class="price"><span>Rp50.000</span></p>
-                            <p><a href="{{ route('keranjang') }}" class="btn btn-primary btn-outline-primary">Tambah ke
-                                    Keranjang</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="menu-entry">
-                        <a href="{{ route('detail.toko') }}" class="img"
-                            style="background-image: url({{ asset('landing/images/menu-4.jpg') }});"></a>
-                        <div class="text text-center pt-4">
-                            <h3><a href="{{ route('detail.toko') }}">Kopi Mas Bro</a></h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                            <p class="price"><span>Rp50.000</span></p>
-                            <p><a href="{{ route('keranjang') }}" class="btn btn-primary btn-outline-primary">Tambah ke
-                                    Keranjang</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    @endif
 
     <section class="ftco-gallery">
         <div class="container-wrap">

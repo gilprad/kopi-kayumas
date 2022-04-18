@@ -85,8 +85,7 @@
                             <h3><a href="{{ route('detail.toko') }}">Kopi Maeja</a></h3>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                             <p class="price"><span>Rp50.000</span></p>
-                            <p><a href="{{ route('keranjang') }}" class="btn btn-primary btn-outline-primary">Tambah ke
-                                    Keranjang</a></p>
+                            <p><a href="#" class="btn btn-block btn-primary py-3 px-5">Tambah ke Keranjang</a></p>
                         </div>
                     </div>
                 </div>
@@ -98,8 +97,7 @@
                             <h3><a href="{{ route('detail.toko') }}">Kopi Mulya</a></h3>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                             <p class="price"><span>Rp50.000</span></p>
-                            <p><a href="{{ route('keranjang') }}" class="btn btn-primary btn-outline-primary">Tambah ke
-                                    Keranjang</a></p>
+                            <p><a href="#" class="btn btn-block btn-primary py-3 px-5">Tambah ke Keranjang</a></p>
                         </div>
                     </div>
                 </div>
@@ -111,8 +109,7 @@
                             <h3><a href="{{ route('detail.toko') }}">Kopi Talimas</a></h3>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                             <p class="price"><span>Rp50.000</span></p>
-                            <p><a href="{{ route('keranjang') }}" class="btn btn-primary btn-outline-primary">Tambah ke
-                                    Keranjang</a></p>
+                            <p><a href="#" class="btn btn-block btn-primary py-3 px-5">Tambah ke Keranjang</a></p>
                         </div>
                     </div>
                 </div>
@@ -124,8 +121,7 @@
                             <h3><a href="{{ route('detail.toko') }}">Kopi Mas Bro</a></h3>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                             <p class="price"><span>Rp50.000</span></p>
-                            <p><a href="{{ route('keranjang') }}" class="btn btn-primary btn-outline-primary">Tambah ke
-                                    Keranjang</a></p>
+                            <p><a href="#" class="btn btn-block btn-primary py-3 px-5">Tambah ke Keranjang</a></p>
                         </div>
                     </div>
                 </div>
