@@ -37,6 +37,8 @@ Route::get('/toko/detail', function () {
     return view('landing.shop-detail');
 })->name('detail.toko');
 
+Route::get('/toko/search', [LandingController::class, 'search'])->name('search');
+
 Route::get('/kontak', function () {
     return view('landing.contact');
 })->name('kontak');

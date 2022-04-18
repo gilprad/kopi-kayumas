@@ -34,12 +34,14 @@
                                 <div class="icon">
                                     <span class="icon-search"></span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Cari Produk Disini...">
+                                <input id="search" name="search" type="text" class="form-control" placeholder="Cari Produk Disini...">
                             </div>
                         </form>
                     </div>
+                </div>
+                <div id="productList" class="row ftco-animate">
                     @foreach ($products as $product)
-                        <div class="col-md-4">
+                        <div id="productItem" class="col-md-4">
                             <div class="menu-entry">
                                 <a href="{{ route('detail.toko') }}" class="img"
                                     style="background-image: url({{ asset('storage/product/'.$product->image) }});"></a>
@@ -57,3 +59,49 @@
         </section>
     @endif
 @endsection
+
+@push('script')
+    <script>
+        "use strict"
+
+        function getSearchResult(data) {
+            if (data.length !== 0) {
+                $("#productList > #productItem").hide();
+                $.each(data, function(index, value) {
+                    $("#productList").append(
+                        `<div id="productItem" class="col-md-4">` +
+                            `<div class="menu-entry">` +
+                                `<a href="{{ route('detail.toko') }}" class="img"` +
+                                    `style="background-image: url({{ asset('storage/product/'.` + value.image + `) }});"></a>` +
+                                `<div class="text text-center pt-4">` +
+                                    `<h3><a href="{{ route('detail.toko') }}">` + value.name + `</a></h3>` +
+                                    `<p>` + value.excerpt + `</p>` +
+                                    `<p class="price"><span>Rp` +  parseInt(value.price).toLocaleString('en') + `</span></p>` +
+                                    `<p><a href="#" class="btn btn-block btn-primary py-3 px-5">Tambah ke Keranjang</a></p>` +
+                                `</div>` +
+                            `</div>` +
+                        `</div>`
+                    )
+                });
+            }
+        }
+
+        let jqxhr = {
+            abort: function() {}
+        };
+        
+        $("#search").on("input", function() {
+            let search = $(this).val();
+            jqxhr.abort();
+            jqxhr = $.ajax({
+                method: "GET",
+                url: "/toko/search",
+                data: {
+                    "search": search
+                },
+            }).done(function(data){
+                getSearchResult(data);
+            });
+        });
+    </script>
+@endpush

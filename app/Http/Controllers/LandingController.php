@@ -33,9 +33,18 @@ class LandingController extends Controller
 
     public function product()
     {
-        $products = Product::orderBy('created_at', 'ASC')->get();
+        $products = Product::orderBy('created_at', 'ASC')->paginate(6);
 
         return view('landing.shop', compact('products'));
+    }
+
+    public function search(Request $request)
+    {
+        $products = Product::where('name', 'LIKE', '%'.$request->search.'%')->get();
+        
+        if($request->ajax()) {
+            return response()->json($products, 200);
+        }
     }
 
     public function checkout()
