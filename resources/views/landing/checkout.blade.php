@@ -115,7 +115,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="cart-detail ftco-bg-dark p-3 p-md-4">
+                            <div class="cart-detail cart-total ftco-bg-dark p-3 p-md-4">
                                 <h3 class="billing-heading mb-4">Metode Pembayaran</h3>
                                 <div class="form-group">
                                     <div class="col-md-12">
