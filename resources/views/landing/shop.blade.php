@@ -42,11 +42,11 @@
                         <div class="col-md-4">
                             <div class="menu-entry">
                                 <a href="{{ route('detail.toko') }}" class="img"
-                                    style="background-image: url({{ asset('landing/images/menu-1.jpg') }});"></a>
+                                    style="background-image: url({{ asset('storage/product/'.$product->image) }});"></a>
                                 <div class="text text-center pt-4">
-                                    <h3><a href="{{ route('detail.toko') }}">Kopi Maeja</a></h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                    <p class="price"><span>Rp50.000</span></p>
+                                    <h3><a href="{{ route('detail.toko') }}">{{ $product->name }}</a></h3>
+                                    <p>{{ $product->excerpt }}</p>
+                                    <p class="price"><span>Rp{{ number_format($product->price) }}</span></p>
                                     <p><a href="#" class="btn btn-block btn-primary py-3 px-5">Tambah ke Keranjang</a></p>
                                 </div>
                             </div>
