@@ -57,7 +57,7 @@ class ProductController extends Controller
         Product::create([
             'image'       => $filename,
             'name'        => $request->name,
-            'slug'        => strtolower($request->name),
+            'slug'        => Str::slug($request->name),
             'description' => $request->description,
             'excerpt'     => Str::words(strip_tags(html_entity_decode($request->description)), 8),
             'price'       => $request->price,
@@ -118,7 +118,7 @@ class ProductController extends Controller
             $product->update([
                 'image'       => $filename,
                 'name'        => $request->name,
-                'slug'        => strtolower($request->name),
+                'slug'        => Str::slug($request->name),
                 'description' => $request->description,
                 'excerpt'     => Str::words(strip_tags(html_entity_decode($request->description)), 8),
                 'price'       => $request->price
@@ -126,7 +126,7 @@ class ProductController extends Controller
         } else {
             $product->update([
                 'name'        => $request->name,
-                'slug'        => strtolower($request->name),
+                'slug'        => Str::slug($request->name),
                 'description' => $request->description,
                 'excerpt'     => Str::words(strip_tags(html_entity_decode($request->description)), 8),
                 'price'       => $request->price
@@ -145,7 +145,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
-        Storage::disk('local')->delete('public/product/' . $product->thumbnail);
+        Storage::disk('local')->delete('public/product/' . $product->image);
         $product->delete();
 
         return redirect()->back()->with('success', 'Data berhasil dihapus');
