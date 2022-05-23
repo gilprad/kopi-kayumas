@@ -45,7 +45,7 @@
                         <div class="col-md-4 d-flex ftco-animate">
                             <div class="w-100 blog-entry align-self-stretch">
                                 <a href="{{ route('detail.berita', $blog->slug) }}" class="block-20"
-                                    style="background-image: url({{ asset('storage/thumbnail/'.$blog->thumbnail) }});">
+                                    style="background-image: url({{ asset('storage/thumbnail/' . $blog->thumbnail) }});">
                                 </a>
                                 <div class="text py-4 d-block">
                                     <div class="meta">
