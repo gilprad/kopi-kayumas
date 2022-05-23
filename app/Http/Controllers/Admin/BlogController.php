@@ -55,7 +55,7 @@ class BlogController extends Controller
         Blog::create([
             'thumbnail' => $filename,
             'title'     => $request->title,
-            'slug'      => strtolower($request->title),
+            'slug'      => Str::slug($request->title),
             'contents'  => $request->contents,
             'excerpt'   => Str::words(strip_tags(html_entity_decode($request->contents)), 8)
         ]);
@@ -113,14 +113,14 @@ class BlogController extends Controller
             $blog->update([
                 'thumbnail' => $filename,
                 'title'     => $request->title,
-                'slug'      => strtolower($request->title) . time(),
+                'slug'      => Str::slug($request->title),
                 'contents'  => $request->contents,
                 'excerpt'   => Str::words(strip_tags(html_entity_decode($request->contents)), 8)
             ]);
         } else {
             $blog->update([
                 'title'    => $request->title,
-                'slug'     => strtolower($request->title) . time(),
+                'slug'     => Str::slug($request->title),
                 'contents' => $request->contents,
                 'excerpt'  => Str::words(strip_tags(html_entity_decode($request->contents)), 8)
             ]);

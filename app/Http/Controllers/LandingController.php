@@ -26,8 +26,8 @@ class LandingController extends Controller
 
     public function blogDetail($slug)
     {
-        $blogs = Blog::where('slug', '!=', $slug)->orderBy('created_at', 'ASC')->get()->take(3);
         $blog = Blog::where('slug', $slug)->firstOrFaiL();
+        $blogs = Blog::where('name', '!=', $blog->name)->orderBy('created_at', 'ASC')->get()->take(3);
 
         return view('landing.blog-detail', compact('blogs', 'blog'));
     }
