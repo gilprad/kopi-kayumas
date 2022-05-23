@@ -15,4 +15,9 @@ class Product extends Model
     {
         return $this->belongsTo(Group::class, 'group_id', 'id');
     }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class, 'user_id', 'id');
+    }
 }

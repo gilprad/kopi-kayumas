@@ -16,7 +16,7 @@
                             tersembunyi di ujung timur Pulau Jawa</p>
                         <p>
                             <a href="{{ route('toko') }}"
-                                class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Lihat Produk</a>
+                                class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Lihat Semua Produk</a>
                         </p>
                     </div>
 
@@ -197,13 +197,13 @@
                     @foreach ($products as $product)
                         <div class="col-md-3">
                             <div class="menu-entry">
-                                <a href="{{ route('detail.toko') }}" class="img"
-                                    style="background-image: url({{ asset('storage/product/'.$product->image) }});"></a>
+                                <a href="{{ route('detail.toko', $product->slug) }}" class="img"
+                                    style="background-image: url({{ asset('storage/product/' . $product->image) }});"></a>
                                 <div class="text text-center pt-4">
-                                    <h3><a href="{{ route('detail.toko') }}">{{ $product->name }}</a></h3>
+                                    <h3><a href="{{ route('detail.toko', $product->slug) }}">{{ $product->name }}</a></h3>
                                     <p>{{ $product->excerpt }}</p>
                                     <p class="price"><span>Rp{{ number_format($product->price) }}</span></p>
-                                    <p><a href="#" class="btn btn-block btn-primary py-3 px-5">Tambah ke Keranjang</a></p>
+                                    <p><a href="{{ route('detail.toko', $product->slug) }}" class="btn btn-block btn-primary py-3 px-5">Lihat Produk</a></p>
                                 </div>
                             </div>
                         </div>

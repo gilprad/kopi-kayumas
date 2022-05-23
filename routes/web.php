@@ -33,19 +33,15 @@ Route::get('/berita/{slug}', [LandingController::class, 'blogDetail'])->name('de
 
 Route::get('/toko', [LandingController::class, 'product'])->name('toko');
 
-Route::get('/toko/detail', function () {
-    return view('landing.shop-detail');
-})->name('detail.toko');
+Route::get('/toko/{slug}', [LandingController::class, 'productDetail'])->name('detail.toko');
 
-Route::get('/toko/search', [LandingController::class, 'search'])->name('search');
+Route::get('/search', [LandingController::class, 'search'])->name('search');
 
 Route::get('/kontak', function () {
     return view('landing.contact');
 })->name('kontak');
 
-Route::get('/keranjang', function () {
-    return view('landing.cart');
-})->name('keranjang');
+Route::get('/keranjang', [LandingController::class, 'cart'])->name('keranjang');
 
 Route::get('/checkout', [LandingController::class, 'checkout'])->name('checkout');
 

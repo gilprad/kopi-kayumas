@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Models\Product;
+use App\Models\Cart;
 
 class LandingController extends Controller
 {
@@ -36,6 +37,20 @@ class LandingController extends Controller
         $products = Product::orderBy('created_at', 'ASC')->paginate(6);
 
         return view('landing.shop', compact('products'));
+    }
+
+    public function productDetail($slug)
+    {
+        $product = Product::where('slug', $slug)->firstOrFail();
+        $products = Product::where('name', '!=', $product->name)->get()->take(4);
+
+        return view('landing.shop-detail', compact('products', 'product'));
+    }
+
+    public function cart() {
+        $products = Product::orderBy('created_at', 'ASC')->get()->take(4);
+
+        return view('landing.cart', compact('products'));
     }
 
     public function search(Request $request)

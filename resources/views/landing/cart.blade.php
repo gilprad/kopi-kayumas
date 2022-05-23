@@ -135,54 +135,20 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3">
-                    <div class="menu-entry">
-                        <a href="{{ route('detail.toko') }}" class="img"
-                            style="background-image: url({{ asset('landing/images/menu-1.jpg') }});"></a>
-                        <div class="text text-center pt-4">
-                            <h3><a href="{{ route('detail.toko') }}">Kopi Maeja</a></h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                            <p class="price"><span>Rp50.000</span></p>
-                            <p><a href="#" class="btn btn-block btn-primary py-3 px-5">Tambah ke Keranjang</a></p>
+                @foreach ($products as $product)
+                    <div class="col-md-3">
+                        <div class="menu-entry">
+                            <a href="{{ route('detail.toko', $product->slug) }}" class="img"
+                                style="background-image: url({{ asset('storage/product/' . $product->image) }});"></a>
+                            <div class="text text-center pt-4">
+                                <h3><a href="{{ route('detail.toko', $product->slug) }}">{{ $product->name }}</a></h3>
+                                <p>{{ $product->excerpt }}</p>
+                                <p class="price"><span>Rp{{ number_format($product->price) }}</span></p>
+                                <p><a href="{{ route('detail.toko', $product->slug) }}" class="btn btn-block btn-primary py-3 px-5">Lihat Produk</a></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="menu-entry">
-                        <a href="{{ route('detail.toko') }}" class="img"
-                            style="background-image: url({{ asset('landing/images/menu-2.jpg') }});"></a>
-                        <div class="text text-center pt-4">
-                            <h3><a href="{{ route('detail.toko') }}">Kopi Mulya</a></h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                            <p class="price"><span>Rp50.000</span></p>
-                            <p><a href="#" class="btn btn-block btn-primary py-3 px-5">Tambah ke Keranjang</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="menu-entry">
-                        <a href="{{ route('detail.toko') }}" class="img"
-                            style="background-image: url({{ asset('landing/images/menu-3.jpg') }});"></a>
-                        <div class="text text-center pt-4">
-                            <h3><a href="{{ route('detail.toko') }}">Kopi Talimas</a></h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                            <p class="price"><span>Rp50.000</span></p>
-                            <p><a href="#" class="btn btn-block btn-primary py-3 px-5">Tambah ke Keranjang</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="menu-entry">
-                        <a href="{{ route('detail.toko') }}" class="img"
-                            style="background-image: url({{ asset('landing/images/menu-4.jpg') }});"></a>
-                        <div class="text text-center pt-4">
-                            <h3><a href="{{ route('detail.toko') }}">Kopi Mas Bro</a></h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                            <p class="price"><span>Rp50.000</span></p>
-                            <p><a href="#" class="btn btn-block btn-primary py-3 px-5">Tambah ke Keranjang</a></p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

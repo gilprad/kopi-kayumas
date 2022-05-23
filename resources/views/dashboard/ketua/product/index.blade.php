@@ -37,8 +37,6 @@
                                                 <th>Foto</th>
                                                 <th>Nama</th>
                                                 <th>Harga</th>
-                                                <th>Stok</th>
-                                                <th>Terjual</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -46,12 +44,10 @@
                                             @foreach ($products as $i => $product)
                                                 <tr>
                                                     <td>{{ $i+1 }}</td>
-                                                    <td><img src="{{ asset('storage/product/'.$product->image) }}" width="100"
+                                                    <td><img src="{{ asset('storage/product/' . $product->image) }}" width="100"
                                                             height="100" alt=""></td>
                                                     <td>{{ $product->name }}</td>
                                                     <td>Rp{{ number_format($product->price) }}</td>
-                                                    <td>10</td>
-                                                    <td>0</td>
                                                     <td>
                                                         <div class="d-flex">
                                                             <a href="{{ route('ketua.produk.edit', $product->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
@@ -91,7 +87,7 @@
         $("#table-product").dataTable({
             "columnDefs": [{
                 "sortable": false,
-                "targets": [1, 2, 6]
+                "targets": [1, 2, 3, 4]
             }]
         });
     </script>
