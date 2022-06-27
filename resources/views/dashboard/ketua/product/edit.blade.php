@@ -53,6 +53,28 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label for="weight">Berat (gram)</label>
+                                        <input id="weight" type="number" class="form-control{{ $errors->has('weight') ? ' is-invalid' : '' }}" name="weight" value="{{ $product->weight }}" required>
+                                        <div class="invalid-feedback">
+                                            {{ $errors->first('weight') }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="status">Status</label>
+                                        <select id="status" class="form-control" name="status">
+                                            @if($product->status)
+                                                <option value="1" selected>Aktif</option>
+                                                <option value="0">Nonaktif</option>
+                                            @else
+                                                <option value="1">Aktif</option>
+                                                <option value="0" selected>Nonaktif</option>
+                                            @endif
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            {{ $errors->first('status') }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-block">Simpan</button>
                                     </div>
                                 </form>

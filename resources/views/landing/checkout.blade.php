@@ -2,6 +2,14 @@
 
 @section('title', 'Checkout')
 
+@push('style')
+    <style>
+        .billing-form .form-control {
+            color: white !important;
+        }
+    </style>
+@endpush
+
 @section('content')
     <section class="home-slider owl-carousel">
 
@@ -27,48 +35,46 @@
     <section class="ftco-section">
         <div class="container">
             <div class="row">
-                <div class="col-xl-8 ftco-animate">
-                    <form action="#" class="billing-form ftco-bg-dark p-3 p-md-5">
+                <form action="{{ route('pesanan.store', $cart->id) }}" method="POST" class="col-xl-8 ftco-animate">
+                    @csrf
+                    <input type="hidden" name="weight" value="{{ $weight }}">
+                    <div class="billing-form ftco-bg-dark p-3 p-md-5">
                         <h3 class="mb-4 billing-heading">Rincian Pembayaran</h3>
                         <div class="row align-items-end">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="name">Nama</label>
-                                    <input type="text" class="form-control" placeholder="">
+                                    <input type="text" id="name" name="customer_name" class="form-control" placeholder="Masukkan nama pembeli" value="{{ Auth::user()->name }}" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="phone">Nomor Telepon</label>
-                                    <input type="text" class="form-control" placeholder="">
+                                    <input type="text" id="phone" name="customer_phone" class="form-control" placeholder="Masukkan nomor telepon pembeli" value="{{ Auth::user()->profile !== null ? Auth::user()->profile->phone : '' }}" required>
                                 </div>
                             </div>
                             <div class="w-100"></div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="country">Provinsi</label>
+                                    <label for="province">Provinsi</label>
                                     <div class="select-wrap">
                                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                        <select name="" id="" class="form-control">
-                                            <option value="">Banten</option>
-                                            <option value="">Jawa Barat</option>
-                                            <option value="">DKI Jakarta</option>
-                                            <option value="">DI Yogyakarta</option>
-                                            <option value="">Jawa Tengah</option>
-                                            <option value="">Jawa Timur</option>
+                                        <select name="customer_province" id="province" class="form-control">
+                                            <option style="color: black" value="">-- Pilih provinsi tujuan --</option>
+                                            @foreach ($provinces as $value => $province)
+                                                <option style="color: black" value="{{ $value }}">{{ $province }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="country">Kabupaten</label>
+                                    <label for="city">Kabupaten</label>
                                     <div class="select-wrap">
                                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                        <select name="" id="" class="form-control">
-                                            <option value="">Situbondo</option>
-                                            <option value="">Bondowoso</option>
-                                            <option value="">Jember</option>
+                                        <select name="customer_city" id="city" class="form-control">
+                                            <option value="">-- Pilih kota tujuan --</option>
                                         </select>
                                     </div>
                                 </div>
@@ -77,17 +83,26 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="towncity">Alamat</label>
-                                    <input type="text" class="form-control" placeholder="">
+                                    <input type="text" id="towncity" name="customer_address" class="form-control" placeholder="Masukkan alamat pembeli" value="{{ Auth::user()->profile !== null ? Auth::user()->profile->address : '' }}" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="postcodezip">Kode Pos</label>
-                                    <input type="text" class="form-control" placeholder="">
+                                    <input type="text" id="postcodezip" name="customer_postal_code" class="form-control" placeholder="Masukkan kode pos pembeli" required>
+                                </div>
+                            </div>
+                            <div id="shipping_method" class="col-12 d-none">
+                                <div class="form-group">
+                                    <label for="customer_shipping">Opsi Pengiriman</label>
+                                    <div class="select-wrap">
+                                        <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                        <select name="customer_shipping" id="customer_shipping" class="form-control"></select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </form><!-- END -->
+                    </div><!-- END -->
 
 
 
@@ -97,20 +112,17 @@
                                 <h3 class="billing-heading mb-4">Total Keranjang</h3>
                                 <p class="d-flex">
                                     <span>Subtotal</span>
-                                    <span>Rp150.000</span>
+                                    <span>Rp{{ number_format($subtotal) }}</span>
+                                    <input type="hidden" name="subtotal" value="{{ $subtotal }}">
                                 </p>
                                 <p class="d-flex">
                                     <span>Ongkir</span>
-                                    <span>Rp18.000</span>
-                                </p>
-                                <p class="d-flex">
-                                    <span>Diskon</span>
-                                    <span>Rp8.000</span>
+                                    <span id="ongkir">Rp0</span>
                                 </p>
                                 <hr>
                                 <p class="d-flex total-price">
                                     <span>Total</span>
-                                    <span>Rp160.000</span>
+                                    <span id="total">Rp{{ number_format($subtotal) }}</span>
                                 </p>
                             </div>
                         </div>
@@ -120,7 +132,7 @@
                                 <div class="form-group">
                                     <div class="col-md-12">
                                         <div class="radio">
-                                            <label><input type="radio" name="optradio" class="mr-2">
+                                            <label><input type="radio" name="payment_type" class="mr-2" value="transfer" checked>
                                                 Transfer</label>
                                         </div>
                                     </div>
@@ -128,23 +140,25 @@
                                 <div class="form-group">
                                     <div class="col-md-12">
                                         <div class="radio">
-                                            <label><input type="radio" name="optradio" class="mr-2"> COD</label>
+                                            <label><input type="radio" name="payment_type" class="mr-2" value="cod"> COD</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-12">
                                         <div class="checkbox">
-                                            <label><input type="checkbox" value="" class="mr-2"> Saya menyetujui
+                                            <label><input name="terms" type="checkbox" value="checked" class="mr-2"> Saya menyetujui
                                                 syarat dan ketentuan pembelian</label>
                                         </div>
                                     </div>
                                 </div>
-                                <p><a href="#" class="btn btn-primary py-3 px-4">Melakukan Pemesanan</a></p>
+                                <p>
+                                    <button type="submit" class="btn btn-primary py-3 px-4">Melakukan Pemesanan</button>
+                                </p>
                             </div>
                         </div>
                     </div>
-                </div> <!-- .col-md-8 -->
+                </form> <!-- .col-md-8 -->
 
                 <div class="col-xl-4 sidebar ftco-animate">
                     <div class="sidebar-box ftco-animate">
@@ -167,3 +181,79 @@
         </div>
     </section>
 @endsection
+
+@push('script')
+    <script>
+        $(document).ready(function () {
+            $('select[name="customer_province"]').on('change', function () {
+                let provinceId = $(this).val();
+                if (provinceId) {
+                    $.ajax({
+                        url: '/pesanan/cities/' + provinceId,
+                        type: "GET",
+                        dataType: "json",
+                        success: function (response) {
+                            $('select[name="customer_city"]').empty();
+                            $('select[name="customer_city"]').append('<option style="color: black" value="">-- Pilih kota tujuan --</option>');
+                            $.each(response, function (key, value) {
+                                $('select[name="customer_city"]').append('<option style="color: black" value="' + key + '">' + value + '</option>');
+                            });
+                        },
+                    });
+                } else {
+                    $('select[name="customer_city"]').append('<option style="color: black" value="">-- Pilih kota tujuan --</option>');
+                }
+            });
+
+            let isProcessing = false;
+
+            $('select[name="customer_city"]').on('change', function (e) {
+                e.preventDefault();
+                let city_origin = 418;
+                let city_destination = $(this).val();
+                let courier = 'jne';
+                let weight = $("input[name='weight']").val();
+
+                if(isProcessing) {
+                    return;
+                }
+
+                isProcessing = true;
+                $.ajax({
+                    method: "POST",
+                    url: "/pesanan/ongkir",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        city_origin: city_origin,
+                        city_destination: city_destination,
+                        courier: courier,
+                        weight: weight
+                    },
+                    dataType: "json",
+                    success: function(result) {
+                        isProcessing = false;
+                        if(result) {
+                            $('#customer_shipping').empty();
+                            $('#shipping_method').addClass('d-block');
+                            $('#customer_shipping').append('<option style="color: black" value="">-- Pilih jenis pengiriman --</option>');
+                            $.each(result[0]['costs'], function(key, value) {
+                                $('#customer_shipping').append(
+                                    '<option style="color: black" value="'+value.cost[0].value+'">'+result[0].code.toUpperCase()+' : '+value.service+' - Rp. '+value.cost[0].value+' ('+value.cost[0].etd+' hari)</option>'
+                                );
+                            });
+                        }
+                    }
+                });
+            });
+
+            $('select[name="customer_shipping"]').on('change', function () {
+                let subtotal = parseInt({{ $subtotal }});
+                let ongkir = parseInt($(this).val());
+                let total = subtotal + ongkir;
+
+                $('#ongkir').html('Rp' + ongkir.toLocaleString('en'));
+                $('#total').html('Rp' + total.toLocaleString('en'));
+            });
+        });
+    </script>
+@endpush

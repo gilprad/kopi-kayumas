@@ -66,8 +66,8 @@
                     </a>
                 </li>
             @elserole('pembeli')
-                <li class="{{ Request::route()->getName() == 'pembeli.pesanan' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('pembeli.pesanan') }}"><i class="fas fa-receipt"></i>
+                <li class="{{ Request::route()->getName() == 'pembeli.pesanan.index' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('pembeli.pesanan.index') }}"><i class="fas fa-receipt"></i>
                         <span>Pesanan</span>
                     </a>
                 </li>

@@ -2,6 +2,19 @@
 
 @section('title', 'Toko')
 
+@push('style')
+    <style>
+        .block-27 nav {
+            display: flex;
+            justify-content: center;
+        }
+
+        .block-27 nav ul li {
+            margin: 0 2px;
+        }
+    </style>
+@endpush
+
 @section('content')
     <section class="home-slider owl-carousel">
 
@@ -54,6 +67,13 @@
                             </div>
                         </div>
                     @endforeach
+                </div>
+                <div class="row mt-5">
+                    <div class="col">
+                        <div class="block-27">
+                            {{ $products->links('pagination::default') }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

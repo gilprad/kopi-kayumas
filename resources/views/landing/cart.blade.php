@@ -2,6 +2,24 @@
 
 @section('title', 'Keranjang')
 
+@push('style')
+    <style>
+        .table tbody tr td.product-remove button {
+            background: transparent;
+            height: initial !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            padding: 2.5px 10px; 
+        }
+        .table tbody tr td.product-remove button:hover {
+            background: #c49b63;
+            cursor: pointer;
+        }
+        .table tbody tr td.product-remove button:hover span {
+            color: #000; 
+        }
+    </style>
+@endpush
+
 @section('content')
     <section class="home-slider owl-carousel">
 
@@ -41,55 +59,37 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="text-center">
-                                    <td class="product-remove"><a href="#"><span class="icon-close"></span></a></td>
+                                @foreach ($carts as $cart)
+                                    <tr class="text-center">
+                                        <td class="product-remove">
+                                            <form action="{{ route('keranjang.destroy', $cart->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"><span class="icon-close"></button>
+                                            </form>
+                                        </td>
 
-                                    <td class="image-prod">
-                                        <div class="img"
-                                            style="background-image:url({{ asset('landing/images/menu-2.jpg') }});"></div>
-                                    </td>
+                                        <td class="image-prod">
+                                            <div class="img"
+                                                style="background-image:url({{ asset('storage/product/' . $cart->product->image) }});"></div>
+                                        </td>
 
-                                    <td class="product-name">
-                                        <h3>Kopi Mulya</h3>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                    </td>
+                                        <td class="product-name">
+                                            <a href="{{ route('detail.toko', $cart->product->slug) }}"><h3 class="mb-0">{{ $cart->product->name }}</h3></a>
+                                        </td>
 
-                                    <td class="price">Rp50.000</td>
+                                        <td class="price">Rp{{ number_format($cart->product->price) }}</td>
 
-                                    <td class="quantity">
-                                        <div class="input-group mb-3">
-                                            <input type="text" name="quantity" class="quantity form-control input-number"
-                                                value="1" min="1" max="100">
-                                        </div>
-                                    </td>
+                                        <td class="quantity">
+                                            <form class="input-group">
+                                                <input data-id="{{ $cart->id }}" type="text" name="quantity" class="quantity form-control input-number" 
+                                                    value="{{ $cart->quantity }}" min="1" max="100">
+                                            </form>
+                                        </td>
 
-                                    <td class="total">Rp50.000</td>
-                                </tr><!-- END TR-->
-
-                                <tr class="text-center">
-                                    <td class="product-remove"><a href="#"><span class="icon-close"></span></a></td>
-
-                                    <td class="image-prod">
-                                        <div class="img"
-                                            style="background-image:url({{ asset('landing/images/menu-4.jpg') }});"></div>
-                                    </td>
-
-                                    <td class="product-name">
-                                        <h3>Kopi Mas Bro</h3>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, eum.</p>
-                                    </td>
-
-                                    <td class="price">Rp50.000</td>
-
-                                    <td class="quantity">
-                                        <div class="input-group mb-3">
-                                            <input type="text" name="quantity" class="quantity form-control input-number"
-                                                value="2" min="1" max="100">
-                                        </div>
-                                    </td>
-
-                                    <td class="total">Rp100.000</td>
-                                </tr><!-- END TR-->
+                                        <td class="total">Rp{{ number_format($cart->product->price * $cart->quantity) }}</td>
+                                    </tr><!-- END TR-->
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -99,25 +99,13 @@
                 <div class="col col-lg-3 col-md-6 mt-5 cart-wrap ftco-animate">
                     <div class="cart-total mb-3">
                         <h3>Total Keranjang</h3>
-                        <p class="d-flex">
-                            <span>Subtotal</span>
-                            <span>Rp150.000</span>
-                        </p>
-                        <p class="d-flex">
-                            <span>Ongkir</span>
-                            <span>Rp18.000</span>
-                        </p>
-                        <p class="d-flex">
-                            <span>Diskon</span>
-                            <span>Rp8.000</span>
-                        </p>
                         <hr>
                         <p class="d-flex total-price">
-                            <span>Total</span>
-                            <span>Rp160.000</span>
+                            <span>Subtotal</span>
+                            <span>Rp{{ number_format($subtotal) }}</span>
                         </p>
                     </div>
-                    <p class="text-center"><a href="{{ route('checkout') }}" class="btn btn-primary py-3 px-4">Proses
+                    <p class="text-center"><a href="{{ route('pesanan') }}" class="btn btn-primary py-3 px-4">Proses
                             ke Checkout</a></p>
                 </div>
             </div>
@@ -153,3 +141,27 @@
         </div>
     </section>
 @endsection
+
+@push('script')
+<script>
+    $(document).ready(function() {
+        "use strict"
+        $('.quantity.form-control.input-number').change(function() {
+            let id = $(this).data('id');
+            let quantity = $(this).val();
+            $.ajax({
+                method: "PUT",
+                url: "/keranjang/" + id,
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    quantity: quantity,
+                },
+                dataType: "json",
+                success: function(result) {
+                    window.location.reload(true);
+                }
+            }); 
+        });
+    })
+</script>
+@endpush

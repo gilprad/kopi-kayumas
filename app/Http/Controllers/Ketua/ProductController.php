@@ -45,7 +45,9 @@ class ProductController extends Controller
             'image'       => 'required|image|mimes:png,jpeg,jpg',
             'name'        => 'required|string',
             'description' => 'required',
-            'price'       => 'required|integer'
+            'price'       => 'required|integer',
+            'weight'      => 'required|integer',
+            'status'      => 'required|boolean'
         ]);
 
         if ($request->hasFile('image')) {
@@ -61,6 +63,8 @@ class ProductController extends Controller
             'description' => $request->description,
             'excerpt'     => Str::words(strip_tags(html_entity_decode($request->description)), 8),
             'price'       => $request->price,
+            'weight'      => $request->weight,
+            'status'      => (int) $request->status,
             'group_id'    => Auth::user()->group->id
         ]);
 
@@ -104,7 +108,9 @@ class ProductController extends Controller
             'image'       => 'image|mimes:png,jpeg,jpg',
             'name'        => 'required|string',
             'description' => 'required',
-            'price'       => 'required|integer'
+            'price'       => 'required|integer',
+            'weight'      => 'required|integer',
+            'status'      => 'required|boolean'
         ]);
         
         $product = Product::findOrFail($id);
@@ -121,7 +127,9 @@ class ProductController extends Controller
                 'slug'        => Str::slug($request->name),
                 'description' => $request->description,
                 'excerpt'     => Str::words(strip_tags(html_entity_decode($request->description)), 8),
-                'price'       => $request->price
+                'price'       => $request->price,
+                'weight'      => $request->weight,
+                'status'      => (int) $request->status
             ]);
         } else {
             $product->update([
@@ -129,7 +137,9 @@ class ProductController extends Controller
                 'slug'        => Str::slug($request->name),
                 'description' => $request->description,
                 'excerpt'     => Str::words(strip_tags(html_entity_decode($request->description)), 8),
-                'price'       => $request->price
+                'price'       => $request->price,
+                'weight'      => $request->weight,
+                'status'      => (int) $request->status
             ]);
         }
 

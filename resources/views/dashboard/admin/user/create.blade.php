@@ -12,11 +12,14 @@
                     @csrf
                     <div class="form-group">
                         <label for="role">Role</label>
-                        <select class="form-control" name="role">
+                        <select id="role" class="form-control" name="role">
                             @foreach ($roles as $role)
                                 <option value="{{ $role->name }}">{{ $role->name }}</option>
                             @endforeach
                         </select>
+                        <div class="invalid-feedback">
+                            {{ $errors->first('role') }}
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="name">Nama</label>

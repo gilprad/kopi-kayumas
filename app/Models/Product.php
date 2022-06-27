@@ -11,13 +11,24 @@ class Product extends Model
 
     protected $guarded = [];
 
+    public function getStatusAttribute()
+    {
+        $status = $this->attributes['status'];
+
+        if($status) {
+            return '<div class="badge badge-success">Aktif</div>';
+        } else {
+            return '<div class="badge badge-danger">Nonaktif</div>';
+        }
+    }
+
     public function group()
     {
         return $this->belongsTo(Group::class, 'group_id', 'id');
     }
 
-    public function carts()
+    public function cart_details()
     {
-        return $this->hasMany(Cart::class, 'user_id', 'id');
+        return $this->hasMany(CartDetail::class, 'product_id', 'id');
     }
 }

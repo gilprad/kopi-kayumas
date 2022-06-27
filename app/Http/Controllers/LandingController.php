@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Models\Product;
-use App\Models\Cart;
 
 class LandingController extends Controller
 {
@@ -27,7 +26,7 @@ class LandingController extends Controller
     public function blogDetail($slug)
     {
         $blog = Blog::where('slug', $slug)->firstOrFaiL();
-        $blogs = Blog::where('name', '!=', $blog->name)->orderBy('created_at', 'ASC')->get()->take(3);
+        $blogs = Blog::where('title', '!=', $blog->title)->orderBy('created_at', 'ASC')->get()->take(3);
 
         return view('landing.blog-detail', compact('blogs', 'blog'));
     }
@@ -47,12 +46,6 @@ class LandingController extends Controller
         return view('landing.shop-detail', compact('products', 'product'));
     }
 
-    public function cart() {
-        $products = Product::orderBy('created_at', 'ASC')->get()->take(4);
-
-        return view('landing.cart', compact('products'));
-    }
-
     public function search(Request $request)
     {
         $products = Product::where('name', 'LIKE', '%'.$request->search.'%')->get();
@@ -60,12 +53,5 @@ class LandingController extends Controller
         if($request->ajax()) {
             return response()->json($products, 200);
         }
-    }
-
-    public function checkout()
-    {
-        $blogs = Blog::orderBy('created_at', 'ASC')->get()->take(3);
-
-        return view('landing.checkout', compact('blogs'));
     }
 }

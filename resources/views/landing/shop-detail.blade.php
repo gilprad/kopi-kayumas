@@ -2,6 +2,19 @@
 
 @section('title', 'Detail Toko')
 
+@push('style')
+    <style>
+        .btn-primary.btn-cart {
+            color: black !important;
+        }
+        
+        .btn-primary.btn-cart:hover {
+            border: 1px solid #c49b63 !important;
+            color: #c49b63 !important;
+        }
+    </style>
+@endpush
+
 @section('content')
     <section class="home-slider owl-carousel">
 
@@ -32,7 +45,8 @@
                             src="{{ asset('storage/product/' . $product->image) }}" class="img-fluid"
                             alt="Gambar {{ $product->name }}"></a>
                 </div>
-                <div class="col-lg-6 product-details pl-md-5 ftco-animate">
+                <form class="col-lg-6 product-details pl-md-5 ftco-animate" action="{{ route('keranjang.store') }}" method="POST">
+                    @csrf
                     <h3>{{ $product->name }}</h3>
                     <p class="price"><span>Rp{{ number_format($product->price) }}</span></p>
                     {!! $product->description !!}
@@ -52,8 +66,13 @@
                             </span>
                         </div>
                     </div>
-                    <p><a href="{{ route('keranjang') }}" class="btn btn-primary py-3 px-5">Tambah ke Keranjang</a></p>
-                </div>
+                    <input type="hidden" name="id" value="{{ $product->id }}">
+                    @if($product->getRawOriginal('status'))
+                        <button type="submit" class="btn btn-cart py-3 px-5">Tambah ke Keranjang</button>
+                    @else
+                        <button type="submit" class="btn btn-cart py-3 px-5" disabled>Barang Tidak Tersedia</button>
+                    @endif
+                </form>
             </div>
         </div>
     </section>
@@ -87,3 +106,24 @@
         </div>
     </section>
 @endsection
+
+@push('script')
+    <script>
+        $(document).ready(function() {
+            let quantity = 0;
+            $('.quantity-right-plus').click(function(e) {
+                e.preventDefault();
+                let quantity = parseInt($('#quantity').val());
+                $('#quantity').val(quantity + 1);
+            });
+
+            $('.quantity-left-minus').click(function(e) {
+                e.preventDefault();
+                let quantity = parseInt($('#quantity').val());
+                if (quantity > 0) {
+                    $('#quantity').val(quantity - 1);
+                }
+            });
+        });
+    </script>
+@endpush

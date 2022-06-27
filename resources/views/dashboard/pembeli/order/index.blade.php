@@ -37,42 +37,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>9 Oktober 2021</td>
-                                                <td>Rp160.000</td>
-                                                <td>Transfer</td>
-                                                <td>
-                                                    <div class="badge badge-success">Selesai</div>
-                                                </td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>10 Oktober 2021</td>
-                                                <td>Rp160.000</td>
-                                                <td>Transfer</td>
-                                                <td>
-                                                    <div class="badge badge-danger">Ditolak</div>
-                                                </td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>10 Oktober 2021</td>
-                                                <td>Rp160.000</td>
-                                                <td>COD</td>
-                                                <td>
-                                                    <div class="badge badge-warning">Menunggu</div>
-                                                </td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                                                </td>
-                                            </tr>
+                                            @foreach ($orders as $i => $order)
+                                                <tr>
+                                                    <td>{{ $i+1 }}</td>
+                                                    <td>{{ $order->created_at }}</td>
+                                                    <td>Rp{{ number_format($order->subtotal + $order->customer_shipping) }}</td>
+                                                    <td>{{ $order->payment_type }}</td>
+                                                    <td>{!! $order->status !!}</td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
