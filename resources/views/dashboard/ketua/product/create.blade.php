@@ -40,6 +40,23 @@
                             {{ $errors->first('price') }}
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="weight">Berat (gram)</label>
+                        <input id="weight" type="number" class="form-control{{ $errors->has('weight') ? ' is-invalid' : '' }}" name="weight" value="{{ old('weight') }}" required>
+                        <div class="invalid-feedback">
+                            {{ $errors->first('weight') }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select id="status" class="form-control" name="status">
+                            <option value="1" selected>Aktif</option>
+                            <option value="0">Nonaktif</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            {{ $errors->first('status') }}
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
                     <button type="submit" class="btn btn-primary">Simpan</button>

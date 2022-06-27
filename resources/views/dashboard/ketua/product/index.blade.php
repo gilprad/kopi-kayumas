@@ -37,6 +37,8 @@
                                                 <th>Foto</th>
                                                 <th>Nama</th>
                                                 <th>Harga</th>
+                                                <th>Berat</th>
+                                                <th>Status</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -48,6 +50,8 @@
                                                             height="100" alt=""></td>
                                                     <td>{{ $product->name }}</td>
                                                     <td>Rp{{ number_format($product->price) }}</td>
+                                                    <td>{{ $product->weight }}</td>
+                                                    <td>{!! $product->status !!}</td>
                                                     <td>
                                                         <div class="d-flex">
                                                             <a href="{{ route('ketua.produk.edit', $product->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>

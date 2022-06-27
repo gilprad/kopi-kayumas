@@ -20,24 +20,42 @@
                 <li class="nav-item {{ Request::route()->getName() == 'kontak' ? 'active' : '' }}">
                     <a href="{{ route('kontak') }}" class="nav-link">Kontak</a>
                 </li>
-                @auth
-                <li class="nav-item">
-                    @role('admin')
-                        <a href="{{ route('admin.pengguna.index') }}" class="nav-link">Dashboard</a>
-                    @elserole('ketua')
-                        <a href="{{ route('ketua.beranda') }}" class="nav-link">Dashboard</a>
-                    @elserole('anggota')
-                        <a href="{{ route('anggota.harga') }}" class="nav-link">Dashboard</a>
-                    @elserole('pembeli')
-                        <a href="{{ route('pembeli.pesanan') }}" class="nav-link">Dashboard</a>
-                    @endrole
-                </li>
-                @endauth
                 <li class="nav-item cart">
                     <a href="{{ route('keranjang') }}" class="nav-link">
                         <span class="icon icon-shopping_cart"></span>
-                        <span class="bag d-flex justify-content-center align-items-center"><small>1</small></span>
+                        @if ($cart_total)
+                            <span class="bag d-flex justify-content-center align-items-center"><small>{{ $cart_total }}</small></span>
+                        @endif
                     </a>
+                </li>
+                <li class="nav-item cart dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="dropdown-login" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="icon icon-user"></span>    
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown-login">
+                        @guest
+                            <a href="{{ route('login') }}" class="dropdown-item">Login</a>
+                        @endguest
+                        @auth
+                            @role('admin')
+                                <a href="{{ route('admin.pengguna.index') }}" class="dropdown-item">Dashboard</a>
+                            @elserole('ketua')
+                                <a href="{{ route('ketua.beranda') }}" class="dropdown-item">Dashboard</a>
+                            @elserole('anggota')
+                                <a href="{{ route('anggota.persediaan.index') }}" class="dropdown-item">Dashboard</a>
+                            @elserole('pembeli')
+                                <a href="{{ route('pembeli.pesanan.index') }}" class="dropdown-item">Dashboard</a>
+                            @endrole
+
+                            <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        @endauth
+                    </div>
                 </li>
             </ul>
         </div>
