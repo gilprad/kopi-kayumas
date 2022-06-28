@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Anggota;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\BeanPrice;
 
 class BeanPriceController extends Controller
 {
@@ -50,7 +51,7 @@ class BeanPriceController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $bean_prices = $user->bean_prices;
+        $bean_prices = BeanPrice::where('user_id', $user->id)->get();
 
         return response()->json($bean_prices, 200);
     }

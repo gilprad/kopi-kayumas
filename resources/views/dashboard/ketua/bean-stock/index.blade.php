@@ -43,7 +43,7 @@
                                                     <td>{{ $user->profile !== null ? $user->profile->address : '' }}</td>
                                                     <td>{{ $user->profile !== null ? $user->profile->phone : '' }}</td>
                                                     <td>
-                                                        <button id="btn-bean-stock" class="btn btn-primary" data-toggle="modal" data-id="{{ $user->id }}">Lihat Persediaan</a>
+                                                        <button class="btn btn-primary btn-bean-stock" data-toggle="modal" data-id="{{ $user->id }}">Lihat Persediaan</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -77,7 +77,7 @@
             }]
         });
 
-        $("#btn-bean-stock").click(function() {
+        $(".btn-bean-stock").click(function() {
             let id = $(this).data("id");
             $.ajax({
                 method: "GET",

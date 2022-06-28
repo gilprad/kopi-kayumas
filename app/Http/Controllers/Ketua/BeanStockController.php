@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Ketua;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\BeanStock;
 
 class BeanStockController extends Controller
 {
@@ -50,7 +51,7 @@ class BeanStockController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $bean_stocks = $user->bean_stocks;
+        $bean_stocks = BeanStock::where('user_id', $user->id)->get();
 
         return response()->json($bean_stocks, 200);
     }

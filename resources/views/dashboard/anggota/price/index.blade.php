@@ -43,7 +43,7 @@
                                                     <td>{{ $user->profile !== null ? $user->profile->address : '' }}</td>
                                                     <td>{{ $user->profile !== null ? $user->profile->phone : '' }}</td>
                                                     <td>
-                                                        <button id="btn-bean-price" class="btn btn-primary" data-toggle="modal" data-id="{{ $user->id }}">Lihat Harga Ambil</a>
+                                                        <button class="btn btn-primary btn-bean-price" data-toggle="modal" data-id="{{ $user->id }}">Lihat Harga Ambil</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -77,7 +77,7 @@
             }]
         });
 
-        $("#btn-bean-price").click(function() {
+        $(".btn-bean-price").click(function() {
             let id = $(this).data("id");
             $.ajax({
                 method: "GET",
