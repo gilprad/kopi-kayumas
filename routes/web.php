@@ -14,6 +14,7 @@ use App\Http\Controllers\Ketua\BeanPriceController as KetuaBeanPriceController;
 use App\Http\Controllers\Anggota\BeanStockController as AnggotaBeanStockController;
 use App\Http\Controllers\Anggota\BeanPriceController as AnggotaBeanPriceController;
 use App\Http\Controllers\Pembeli\OrderController as PembeliOrderController;
+use App\Http\Controllers\Penjual\OrderController as PenjualOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +85,10 @@ Route::middleware(['auth', 'role:pembeli'])->group(function () {
     Route::prefix('pembeli')->as('pembeli.')->group(function () {
         Route::resource('pesanan', PembeliOrderController::class)->except(['create', 'store', 'edit', 'update', 'destroy']);
     });
+});
+
+Route::prefix('penjual')->as('penjual.')->middleware(['auth', 'role:penjual'])->group(function () {
+    Route::resource('pesanan', PenjualOrderController::class);
 });
 
 Auth::routes([

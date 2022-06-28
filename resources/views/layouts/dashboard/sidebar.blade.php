@@ -71,6 +71,12 @@
                         <span>Pesanan</span>
                     </a>
                 </li>
+            @elserole('penjual')
+            <li class="{{ Request::route()->getName() == 'penjual.pesanan.index' ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('penjual.pesanan.index') }}"><i class="fas fa-receipt"></i>
+                    <span>Pesanan</span>
+                </a>
+            </li>
             @endrole
     </aside>
 </div>

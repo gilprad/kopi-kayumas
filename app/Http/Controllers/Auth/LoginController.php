@@ -42,6 +42,8 @@ class LoginController extends Controller
             return '/anggota/persediaan';
         } elseif ($user->hasRole('pembeli')) {
             return '/';
+        } elseif ($user->hasRole('penjual')) {
+            return '/penjual/pesanan';
         }
     }
 
