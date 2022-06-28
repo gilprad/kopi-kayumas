@@ -45,6 +45,8 @@
                                 <a href="{{ route('anggota.persediaan.index') }}" class="dropdown-item">Dashboard</a>
                             @elserole('pembeli')
                                 <a href="{{ route('pembeli.pesanan.index') }}" class="dropdown-item">Dashboard</a>
+                            @elserole('penjual')
+                                <a href="{{ route('penjual.pesanan.index') }}" class="dropdown-item">Dashboard</a>
                             @endrole
 
                             <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();document.getElementById('logout-form').submit();">

@@ -42,6 +42,13 @@ class UserSeeder extends Seeder
                 'pembeli123',
                 null,
                 'pembeli'
+            ],
+            '5' => [
+                'Penjual',
+                'penjual',
+                'penjual123',
+                null,
+                'penjual'
             ]
         ];
 

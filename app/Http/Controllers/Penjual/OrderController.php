@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Pembeli;
+namespace App\Http\Controllers\Penjual;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 
 class OrderController extends Controller
@@ -17,13 +16,10 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::whereHas('cart', function($q) {
-            $q->where([
-                ['user_id', Auth::id()],
-                ['checkout', true]
-            ]);
+            $q->where('checkout', true);
         })->orderBy('created_at', 'ASC')->paginate(10);
 
-        return view('dashboard.pembeli.order.index', compact('orders'));
+        return view('dashboard.penjual.order.index', compact('orders'));
     }
 
     /**
@@ -55,9 +51,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::findOrFail($id);
-
-        return view('dashboard.pembeli.order.show', compact('order'));
+        //
     }
 
     /**
