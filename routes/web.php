@@ -5,7 +5,9 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Ketua\UserController as KetuaUserController;
-use App\Http\Controllers\Ketua\ProfileController;
+use App\Http\Controllers\Ketua\ProfileController as KetuaProfileController;
+use App\Http\Controllers\Anggota\ProfileController as AnggotaProfileController;
+use App\Http\Controllers\Pembeli\ProfileController as PembeliProfileController;
 use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 use App\Http\Controllers\Ketua\BlogController as KetuaBlogController;
 use App\Http\Controllers\Ketua\ProductController;
@@ -60,8 +62,8 @@ Route::prefix('ketua')->as('ketua.')->middleware(['auth', 'role:ketua'])->group(
 
     Route::resource('produk', ProductController::class)->except(['create', 'show']);
     Route::resource('anggota', KetuaUserController::class)->except('create', 'show');
-    Route::get('profil', [ProfileController::class, 'index'])->name('profile.index');
-    Route::put('profil/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('profil', [KetuaProfileController::class, 'index'])->name('profile.index');
+    Route::put('profil/{id}', [KetuaProfileController::class, 'update'])->name('profile.update');
     Route::resource('persediaan', KetuaBeanStockController::class)->except(['create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('harga', KetuaBeanPriceController::class)->except(['create', 'show']);
 });
@@ -69,6 +71,8 @@ Route::prefix('ketua')->as('ketua.')->middleware(['auth', 'role:ketua'])->group(
 Route::prefix('anggota')->as('anggota.')->middleware(['auth', 'role:anggota'])->group(function () {
     Route::resource('persediaan', AnggotaBeanStockController::class)->except(['create', 'show']);
     Route::resource('harga', AnggotaBeanPriceController::class)->except(['create', 'store', 'edit', 'update', 'destroy']);
+    Route::get('profil', [AnggotaProfileController::class, 'index'])->name('profile.index');
+    Route::put('profil/{id}', [AnggotaProfileController::class, 'update'])->name('profile.update');
 });
 
 Route::middleware(['auth', 'role:pembeli'])->group(function () {
@@ -84,6 +88,8 @@ Route::middleware(['auth', 'role:pembeli'])->group(function () {
     Route::put('/pembayaran/{id}', [TransactionController::class, 'addPayment'])->name('pembayaran.store');
     Route::prefix('pembeli')->as('pembeli.')->group(function () {
         Route::resource('pesanan', PembeliOrderController::class)->except(['create', 'store', 'edit', 'update', 'destroy']);
+        Route::get('profil', [PembeliProfileController::class, 'index'])->name('profile.index');
+        Route::put('profil/{id}', [PembeliProfileController::class, 'update'])->name('profile.update');
     });
 });
 

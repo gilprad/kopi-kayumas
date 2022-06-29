@@ -12,11 +12,11 @@
                         <i class="far fa-user"></i> Profil
                     </a>
                 @elserole('anggota')
-                    <a href="features-profile.html" class="dropdown-item has-icon">
+                    <a href="{{ route('anggota.profile.index') }}" class="dropdown-item has-icon">
                         <i class="far fa-user"></i> Profil
                     </a>
                 @elserole('pembeli')
-                    <a href="features-profile.html" class="dropdown-item has-icon">
+                    <a href="{{ route('pembeli.profile.index') }}" class="dropdown-item has-icon">
                         <i class="far fa-user"></i> Profil
                     </a>
                 @endrole
