@@ -45,6 +45,7 @@
                                 <a href="{{ route('anggota.persediaan.index') }}" class="dropdown-item">Dashboard</a>
                             @elserole('pembeli')
                                 <a href="{{ route('pembeli.pesanan.index') }}" class="dropdown-item">Dashboard</a>
+                                <a href="{{ route('pembeli.profile.index') }}" class="dropdown-item">Profil</a>
                             @elserole('penjual')
                                 <a href="{{ route('penjual.pesanan.index') }}" class="dropdown-item">Dashboard</a>
                             @endrole

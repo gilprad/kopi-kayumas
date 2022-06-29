@@ -74,7 +74,7 @@
         $("#table-order").dataTable({
             "columnDefs": [{
                 "sortable": false,
-                "targets": [2, 4, 5, 7]
+                "targets": [1, 2, 3, 4, 5]
             }]
         });
     </script>
