@@ -34,6 +34,7 @@
                         @method('PUT')
                         <h3 class="mb-4 billing-heading text-center">Upload Bukti Transfer</h3>
                         <div class="row">
+                            @include('layouts.dashboard.alert')
                             <div class="col-12">
                                 <div class="form-group">
                                     <input id="customer_validation" type="file" class="form-control @error('customer_validation') is-invalid @enderror" name="customer_validation" style="padding: 15px" required>

@@ -31,6 +31,7 @@
                                 <h4>Ubah Profil</h4>
                             </div>
                             <div class="card-body">
+                                @include('layouts.dashboard.alert')
                                 <form action="{{ route('pembeli.profile.update', $user->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
