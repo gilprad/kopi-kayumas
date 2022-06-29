@@ -18,6 +18,7 @@
             </div>
 
             <div class="section-body">
+                @include('layouts.dashboard.alert')
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
