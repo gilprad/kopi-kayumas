@@ -47,11 +47,11 @@
                                                     <td>{{ $bean_price->price }}</td>
                                                     <td>
                                                         <div class="d-flex">
-                                                            <a href="{{ route('ketua.harga.edit', $bean_price->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                                            <a href="{{ route('ketua.harga.edit', $bean_price->id) }}" class="btn btn-primary mr-1" data-toggle="tooltip" title="" data-original-title="Ubah data"><i class="fa fa-edit"></i></a>
                                                             <form action="{{ route('ketua.harga.destroy', $bean_price->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button class="btn btn-danger" type="submit"><i class="fa fa-times"></i></button>
+                                                                <button class="btn btn-danger" type="submit" data-toggle="tooltip" title="" data-original-title="Hapus data"><i class="fa fa-times"></i></button>
                                                             </form>
                                                         </div>
                                                     </td>

@@ -55,11 +55,11 @@
                                                     <td>{!! $product->status !!}</td>
                                                     <td>
                                                         <div class="d-flex">
-                                                            <a href="{{ route('ketua.produk.edit', $product->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                                            <a href="{{ route('ketua.produk.edit', $product->id) }}" class="btn btn-primary mr-1" data-toggle="tooltip" title="" data-original-title="Ubah data"><i class="fa fa-edit"></i></a>
                                                             <form action="{{ route('ketua.produk.destroy', $product->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button class="btn btn-danger" type="submit"><i class="fa fa-times"></i></button>
+                                                                <button class="btn btn-danger" type="submit" data-toggle="tooltip" title="" data-original-title="Hapus data"><i class="fa fa-times"></i></button>
                                                             </form>
                                                         </div>
                                                     </td>
