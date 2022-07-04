@@ -36,6 +36,12 @@ class Order extends Model
             return '<div class="badge badge-danger">Pesanan Dibatalkan</div>';
         } elseif($status == 'Pesanan Dikirim') {
             return '<div class="badge badge-success">Pesanan Dikirim</div>';
+        } elseif($status == 'Pengajuan Pengembalian') {
+            return '<div class="badge badge-warning">Pengajuan Pengembalian</div>';
+        } elseif($status == 'Pesanan Dikembalikan') {
+            return '<div class="badge badge-success">Pesanan Dikembalikan</div>';
+        } elseif($status == 'Pengembalian Ditolak') {
+            return '<div class="badge badge-danger">Pengembalian Ditolak</div>';
         } elseif($status == 'Pesanan Selesai') {
             return '<div class="badge badge-success">Pesanan Selesai</div>';
         }

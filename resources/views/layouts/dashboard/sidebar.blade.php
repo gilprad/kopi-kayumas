@@ -29,8 +29,8 @@
                         <span>Berita</span>
                     </a>
                 </li>
-                <li class="{{ Request::route()->getName() == 'ketua.pesanan' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('ketua.pesanan') }}"><i class="fas fa-receipt"></i>
+                <li class="{{ Request::route()->getName() == 'ketua.pesanan.index' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('ketua.pesanan.index') }}"><i class="fas fa-receipt"></i>
                         <span>Pesanan</span>
                     </a>
                 </li>

@@ -33,54 +33,27 @@
                                                 <th>Nama Pemesan</th>
                                                 <th>Total Harga Pesanan</th>
                                                 <th>Metode Pembayaran</th>
-                                                <th>Nomor Telepon</th>
                                                 <th>Status</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>9 Oktober 2021</td>
-                                                <td>Edianto</td>
-                                                <td>Rp160.000</td>
-                                                <td>Transfer</td>
-                                                <td>082123456789</td>
-                                                <td>
-                                                    <div class="badge badge-success">Selesai</div>
-                                                </td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>10 Oktober 2021</td>
-                                                <td>Herman</td>
-                                                <td>Rp160.000</td>
-                                                <td>Transfer</td>
-                                                <td>082123456798</td>
-                                                <td>
-                                                    <div class="badge badge-danger">Dibatalkan</div>
-                                                </td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>10 Oktober 2021</td>
-                                                <td>Herman</td>
-                                                <td>Rp160.000</td>
-                                                <td>COD</td>
-                                                <td>082123456798</td>
-                                                <td>
-                                                    <div class="badge badge-warning">Menunggu</div>
-                                                </td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                                                </td>
-                                            </tr>
+                                            @foreach ($orders as $i => $order)
+                                                <tr>
+                                                    <td>{{ $i+1 }}</td>
+                                                    <td>{{ $order->created_at }}</td>
+                                                    <td>{{ $order->cart->user->name }}</td>
+                                                    <td>Rp{{ number_format($order->subtotal + $order->customer_shipping) }}</td>
+                                                    <td>{{ $order->payment_type == 'transfer' ? ucfirst($order->payment_type) : strtoupper($order->payment_type) }}</td>
+                                                    <td>{!! $order->status !!}</td>
+                                                    <td class="d-flex">
+                                                        @if ($order->getRawOriginal('status') == 'Menunggu Pembayaran' || $order->getRawOriginal('status') == 'Pesanan Diproses' || $order->getRawOriginal('status') == 'Pesanan Dibatalkan')
+                                                        @else
+                                                            <a href="{{ route('ketua.pesanan.show', $order->id) }}" class="btn btn-primary mr-1" data-toggle="tooltip" title="" data-original-title="Lihat Invoice"><i class="fa fa-eye"></i></a>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>

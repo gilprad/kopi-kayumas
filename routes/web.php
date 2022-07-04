@@ -15,8 +15,10 @@ use App\Http\Controllers\Ketua\BeanStockController as KetuaBeanStockController;
 use App\Http\Controllers\Ketua\BeanPriceController as KetuaBeanPriceController;
 use App\Http\Controllers\Anggota\BeanStockController as AnggotaBeanStockController;
 use App\Http\Controllers\Anggota\BeanPriceController as AnggotaBeanPriceController;
+use App\Http\Controllers\Ketua\OrderController as KetuaOrderController;
 use App\Http\Controllers\Pembeli\OrderController as PembeliOrderController;
 use App\Http\Controllers\Penjual\OrderController as PenjualOrderController;
+use App\Http\Controllers\Ketua\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,9 +38,9 @@ Route::get('/toko', [LandingController::class, 'product'])->name('toko');
 Route::get('/toko/{slug}', [LandingController::class, 'productDetail'])->name('detail.toko');
 Route::get('/search', [LandingController::class, 'search'])->name('search');
 
-Route::get('/kontak', function () {
-    return view('landing.contact');
-})->name('kontak');
+// Route::get('/kontak', function () {
+//     return view('landing.contact');
+// })->name('kontak');
 
 Route::prefix('admin')->as('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('pengguna', AdminUserController::class)->except('create');
@@ -46,20 +48,9 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'role:admin'])->group(
 });
 
 Route::prefix('ketua')->as('ketua.')->middleware(['auth', 'role:ketua'])->group(function () {
-    Route::get('/', function () {
-        return view('dashboard.ketua.home');
-    })->name('beranda');
-
+    Route::get('/', [HomeController::class, 'index'])->name('beranda');
     Route::resource('berita', KetuaBlogController::class)->except(['create', 'show']);
-
-    Route::get('/pesanan', function () {
-        return view('dashboard.ketua.order.index');
-    })->name('pesanan');
-
-    Route::get('/pesanan/detail', function () {
-        return view('dashboard.ketua.order.show');
-    })->name('detail.pesanan');
-
+    Route::resource('pesanan', KetuaOrderController::class);
     Route::resource('produk', ProductController::class)->except(['create', 'show']);
     Route::resource('anggota', KetuaUserController::class)->except('create', 'show');
     Route::get('profil', [KetuaProfileController::class, 'index'])->name('profile.index');
@@ -88,13 +79,24 @@ Route::middleware(['auth', 'role:pembeli'])->group(function () {
     Route::put('/pembayaran/{id}', [TransactionController::class, 'addPayment'])->name('pembayaran.store');
     Route::prefix('pembeli')->as('pembeli.')->group(function () {
         Route::resource('pesanan', PembeliOrderController::class)->except(['create', 'store', 'edit', 'update', 'destroy']);
+        Route::put('pesanan/cancel/{id}', [PembeliOrderController::class, 'cancelOrder'])->name('pesanan.cancel');
+        Route::put('pesanan/finish/{id}', [PembeliOrderController::class, 'finishOrder'])->name('pesanan.finish');
+        Route::get('pesanan/refund/{id}', [PembeliOrderController::class, 'refund'])->name('pesanan.refund');
+        Route::put('pesanan/refund/{id}', [PembeliOrderController::class, 'refundOrder'])->name('pesanan.refund.update');
         Route::get('profil', [PembeliProfileController::class, 'index'])->name('profile.index');
         Route::put('profil/{id}', [PembeliProfileController::class, 'update'])->name('profile.update');
     });
 });
 
 Route::prefix('penjual')->as('penjual.')->middleware(['auth', 'role:penjual'])->group(function () {
-    Route::resource('pesanan', PenjualOrderController::class);
+    Route::resource('pesanan', PenjualOrderController::class)->except(['create', 'store', 'edit', 'update', 'destroy']);
+    Route::get('pesanan/receipt/{id}', [PenjualOrderController::class, 'receiptOrder'])->name('pesanan.receipt');
+    Route::put('pesanan/accept/{id}', [PenjualOrderController::class, 'acceptOrder'])->name('pesanan.accept');
+    Route::put('pesanan/cancel/{id}', [PenjualOrderController::class, 'cancelOrder'])->name('pesanan.cancel');
+    Route::put('pesanan/delivery/{id}', [PenjualOrderController::class, 'deliveryOrder'])->name('pesanan.delivery');
+    Route::get('pesanan/refund/{id}', [PenjualOrderController::class, 'refund'])->name('pesanan.refund');
+    Route::put('pesanan/refund/accept/{id}', [PenjualOrderController::class, 'acceptRefund'])->name('pesanan.refund.accept');
+    Route::put('pesanan/refund/decline/{id}', [PenjualOrderController::class, 'declineRefund'])->name('pesanan.refund.decline');
 });
 
 Auth::routes([
