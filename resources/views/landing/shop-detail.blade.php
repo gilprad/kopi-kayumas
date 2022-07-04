@@ -68,7 +68,7 @@
                     </div>
                     <input type="hidden" name="id" value="{{ $product->id }}">
                     @if($product->getRawOriginal('status'))
-                        <button type="submit" class="btn btn-cart py-3 px-5">Tambah ke Keranjang</button>
+                        <button type="submit" class="btn btn-primary btn-cart py-3 px-5">Tambah ke Keranjang</button>
                     @else
                         <button type="submit" class="btn btn-cart py-3 px-5" disabled>Barang Tidak Tersedia</button>
                     @endif

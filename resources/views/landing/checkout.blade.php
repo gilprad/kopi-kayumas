@@ -41,7 +41,9 @@
                     <div class="billing-form ftco-bg-dark p-3 p-md-5">
                         <h3 class="mb-4 billing-heading">Rincian Pembayaran</h3>
                         <div class="row align-items-end">
-                            @include('layouts.dashboard.alert')
+                            <div class="col-12">
+                                @include('layouts.dashboard.alert')
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="name">Nama</label>

@@ -181,13 +181,13 @@ class TransactionController extends Controller
             ]);
 
             if($order->payment_type == 'transfer') {
-                return redirect()->route('pembayaran', $order->id)->with('success', 'Data berhasil ditambahkan');
+                return redirect()->route('pembayaran', $order->id)->with('success', 'Pesanan berhasil dibuat');
             } else {
                 $order->update([
                     'status' => 2
                 ]);
 
-                return redirect()->route('pembeli.pesanan.index')->with('success', 'Data berhasil ditambahkan');
+                return redirect()->route('pembeli.pesanan.index')->with('success', 'Pesanan diproses');
             }
         } else {
             $cart->update([
@@ -224,6 +224,6 @@ class TransactionController extends Controller
             'status'              => 2
         ]);
 
-        return redirect()->route('pembeli.pesanan.index')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('pembeli.pesanan.index')->with('success', 'Pesanan diproses');
     }
 }

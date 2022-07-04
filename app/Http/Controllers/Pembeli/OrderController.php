@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Pembeli;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Order;
+use App\Models\Province;
+use App\Models\City;
 
 class OrderController extends Controller
 {
@@ -56,8 +59,10 @@ class OrderController extends Controller
     public function show($id)
     {
         $order = Order::findOrFail($id);
+        $province = Province::where('id', $order->customer_province)->first();
+        $city = City::where('id', $order->customer_city)->first();
 
-        return view('dashboard.pembeli.order.show', compact('order'));
+        return view('dashboard.pembeli.order.show', compact('order', 'province', 'city'));
     }
 
     /**
@@ -92,5 +97,56 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function cancelOrder($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->update([
+            'status' => 4 
+        ]);
+
+        return redirect()->back()->with('success', 'Pesanan dibatalkan');
+    }
+
+    public function refund($id)
+    {
+        $order = Order::findOrFail($id);
+        
+        return view('dashboard.pembeli.order.refund', compact('order'));
+    }
+
+    public function refundOrder(Request $request, $id)
+    {
+        $this->validate($request, [
+            'refund_validation' => 'required|image|mimes:png,jpeg,jpg',
+            'refund_reason'     => 'required|string'
+        ]);
+
+        $order = Order::findOrFail($id);
+
+        if ($request->hasFile('refund_validation')) {
+            $file = $request->file('refund_validation');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            Storage::disk('local')->put('public/refund/' . $filename, file_get_contents($file));
+        }
+
+        $order->update([
+            'status'            => 6,
+            'refund_validation' => $filename,
+            'refund_reason'     => $request->refund_reason
+        ]);
+
+        return redirect()->route('pembeli.pesanan.index')->with('success', 'Pengajuan pengembalian barang terkirim');
+    }
+
+    public function finishOrder($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->update([
+            'status' => 9
+        ]);
+
+        return redirect()->back()->with('success', 'Pesanan selesai');
     }
 }

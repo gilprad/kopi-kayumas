@@ -17,6 +17,7 @@
             </div>
 
             <div class="section-body">
+                @include('layouts.dashboard.alert')
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -34,6 +35,7 @@
                                                 <th>Metode Pembayaran</th>
                                                 <th>Status</th>
                                                 <th>Aksi</th>
+                                                <th>Kontak</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -42,11 +44,33 @@
                                                     <td>{{ $i+1 }}</td>
                                                     <td>{{ $order->created_at }}</td>
                                                     <td>Rp{{ number_format($order->subtotal + $order->customer_shipping) }}</td>
-                                                    <td>{{ $order->payment_type }}</td>
+                                                    <td>{{ $order->payment_type == 'transfer' ? ucfirst($order->payment_type) : strtoupper($order->payment_type) }}</td>
                                                     <td>{!! $order->status !!}</td>
-                                                    <td>
-                                                        <a href="#" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                                    <td class="d-flex">
+                                                        @if ($order->getRawOriginal('status') == 'Menunggu Pembayaran')
+                                                            <form action="{{ route('penjual.pesanan.cancel', $order->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <button type="submit" class="btn btn-danger mr-1" data-toggle="tooltip" title="" data-original-title="Pesanan Dibatalkan"><i class="fa fa-times"></i></button>
+                                                            </form>
+                                                        @elseif ($order->getRawOriginal('status') == 'Pesanan Diproses')
+                                                            <a href="{{ route('penjual.pesanan.receipt', $order->id) }}" class="btn btn-primary mr-1" data-toggle="tooltip" title="" data-original-title="Lihat Bukti Pembayaran"><i class="fa fa-eye"></i></a>
+                                                        @elseif ($order->getRawOriginal('status') == 'Pesanan Diterima')
+                                                            <form class="d-flex" action="{{ route('penjual.pesanan.delivery', $order->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <input id="shipping_receipt" name="shipping_receipt" type="text" class="form-control mr-1" style="padding: 0.375rem 0.75rem; height: inherit" placeholder="Masukkan Nomor Resi">
+                                                                <button type="submit" class="btn btn-primary mr-1"><i class="fa fa-check"></i></button>
+                                                            </form>
+                                                            <a href="{{ route('penjual.pesanan.show', $order->id) }}" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="Lihat Invoice"><i class="fa fa-eye"></i></a>
+                                                        @elseif ($order->getRawOriginal('status') == 'Pengajuan Pengembalian')
+                                                            <a href="{{ route('penjual.pesanan.show', $order->id) }}" class="btn btn-primary mr-1" data-toggle="tooltip" title="" data-original-title="Lihat Invoice"><i class="fa fa-eye"></i></a>
+                                                            <a href="{{ route('penjual.pesanan.refund', $order->id) }}" class="btn btn-info" data-toggle="tooltip" title="" data-original-title="Lihat Bukti Pengembalian Barang"><i class="fa fa-undo"></i></a>
+                                                        @else
+                                                            <a href="{{ route('penjual.pesanan.show', $order->id) }}" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="Lihat Invoice"><i class="fa fa-eye"></i></a>
+                                                        @endif
                                                     </td>
+                                                    <td><a href="{{ $order->cart->user->profile ? url('https://wa.me/' . $order->cart->user->profile->phone) : '#' }}" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="Hubungi Penjual"><i class="fa fa-phone"></i></a></td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -74,7 +98,7 @@
         $("#table-order").dataTable({
             "columnDefs": [{
                 "sortable": false,
-                "targets": [1, 2, 3, 4, 5]
+                "targets": [1, 2, 3, 4, 5, 6]
             }]
         });
     </script>
