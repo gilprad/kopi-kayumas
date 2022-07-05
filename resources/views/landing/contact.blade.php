@@ -48,25 +48,26 @@
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-6 ftco-animate">
-                    <form action="#" class="contact-form">
+                    @include('layouts.dashboard.alert')
+                    <form action="{{ route('ticket.store') }}" method="POST" class="contact-form">
+                        @csrf
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Nama Anda">
+                                    <input name="name" type="text" class="form-control" placeholder="Nama Anda" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Email Anda">
+                                    <input name="phone" type="text" class="form-control" placeholder="Nomor Telepon Anda" required>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Perihal">
+                            <input name="subject" type="text" class="form-control" placeholder="Perihal" required>
                         </div>
                         <div class="form-group">
-                            <textarea name="" id="" cols="30" rows="7" class="form-control"
-                                placeholder="Pesan"></textarea>
+                            <textarea name="message" cols="30" rows="7" class="form-control" placeholder="Pesan"></textarea>
                         </div>
                         <div class="form-group">
                             <input type="submit" value="Kirim Pesan" class="btn btn-primary py-3 px-5">

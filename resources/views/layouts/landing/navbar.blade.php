@@ -17,9 +17,9 @@
                 <li class="nav-item {{ Request::route()->getName() == 'toko' ? 'active' : '' }}">
                     <a href="{{ route('toko') }}" class="nav-link">Toko</a>
                 </li>
-                {{-- <li class="nav-item {{ Request::route()->getName() == 'kontak' ? 'active' : '' }}">
+                <li class="nav-item {{ Request::route()->getName() == 'kontak' ? 'active' : '' }}">
                     <a href="{{ route('kontak') }}" class="nav-link">Kontak</a>
-                </li> --}}
+                </li>
                 <li class="nav-item cart">
                     <a href="{{ route('keranjang') }}" class="nav-link">
                         <span class="icon icon-shopping_cart"></span>

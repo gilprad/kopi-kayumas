@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Models\Product;
+use App\Models\Ticket;
 
 class LandingController extends Controller
 {
@@ -53,5 +54,29 @@ class LandingController extends Controller
         if($request->ajax()) {
             return response()->json($products, 200);
         }
+    }
+
+    public function contact()
+    {
+        return view('landing.contact');
+    }
+
+    public function sendTicket(Request $request)
+    {
+        $this->validate($request, [
+            'name'    => 'required|string|max:64',
+            'phone'   => 'required|string|phone:id',
+            'subject' => 'required|string',
+            'message' => 'required'
+        ]);
+
+        Ticket::create([
+            'name'    => $request->name,
+            'phone'   => $request->phone,
+            'subject' => $request->subject,
+            'message' => $request->message
+        ]);
+
+        return redirect()->back()->with('success', 'Aduan telah dibuat');
     }
 }

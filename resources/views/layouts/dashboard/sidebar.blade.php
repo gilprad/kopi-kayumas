@@ -18,6 +18,11 @@
                         <span>Berita</span>
                     </a>
                 </li>
+                <li class="{{ Request::route()->getName() == 'admin.aduan.index' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('admin.aduan.index') }}"><i class="fas fa-ticket-alt"></i>
+                        <span>Aduan</span>
+                    </a>
+                </li>
             @elserole('ketua')
                 <li class="{{ Request::route()->getName() == 'ketua.beranda' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('ketua.beranda') }}"><i class="fas fa-columns"></i>

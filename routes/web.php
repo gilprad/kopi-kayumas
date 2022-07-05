@@ -19,6 +19,7 @@ use App\Http\Controllers\Ketua\OrderController as KetuaOrderController;
 use App\Http\Controllers\Pembeli\OrderController as PembeliOrderController;
 use App\Http\Controllers\Penjual\OrderController as PenjualOrderController;
 use App\Http\Controllers\Ketua\HomeController;
+use App\Http\Controllers\Admin\TicketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,14 +38,13 @@ Route::get('/berita/{slug}', [LandingController::class, 'blogDetail'])->name('de
 Route::get('/toko', [LandingController::class, 'product'])->name('toko');
 Route::get('/toko/{slug}', [LandingController::class, 'productDetail'])->name('detail.toko');
 Route::get('/search', [LandingController::class, 'search'])->name('search');
-
-// Route::get('/kontak', function () {
-//     return view('landing.contact');
-// })->name('kontak');
+Route::get('/kontak', [LandingController::class, 'contact'])->name('kontak');
+Route::post('/kontak', [LandingController::class, 'sendTicket'])->name('ticket.store');
 
 Route::prefix('admin')->as('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('pengguna', AdminUserController::class)->except('create');
     Route::resource('berita', AdminBlogController::class)->except(['create', 'show']);
+    Route::resource('aduan', TicketController::class)->except(['create', 'store', 'edit', 'update', 'destroy']);
 });
 
 Route::prefix('ketua')->as('ketua.')->middleware(['auth', 'role:ketua'])->group(function () {
