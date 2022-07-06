@@ -11,6 +11,9 @@
                 <li class="nav-item {{ Request::route()->getName() == 'beranda' ? 'active' : '' }}">
                     <a href="{{ route('beranda') }}" class="nav-link">Beranda</a>
                 </li>
+                <li class="nav-item {{ Request::route()->getName() == 'tentang' ? 'active' : '' }}">
+                    <a href="{{ route('tentang') }}" class="nav-link">Tentang Kami</a>
+                </li>
                 <li class="nav-item {{ Request::route()->getName() == 'berita' ? 'active' : '' }}">
                     <a href="{{ route('berita') }}" class="nav-link">Berita</a>
                 </li>

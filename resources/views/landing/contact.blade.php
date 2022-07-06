@@ -78,5 +78,5 @@
         </div>
     </section>
 
-    <div id="map"></div>
+    <iframe class="w-100" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1975.7677774200542!2d114.14373459879363!3d-7.943476096693512!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf16d61444d0b0e0e!2sPTP%20Nusantara%20XII!5e0!3m2!1sid!2sid!4v1657015978728!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 @endsection
