@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Group;
 use App\Models\Blog;
 use App\Models\Product;
 use App\Models\Ticket;
@@ -15,6 +16,20 @@ class LandingController extends Controller
         $products = Product::orderBy('created_at', 'ASC')->get()->take(4);
 
         return view('landing.home', compact('blogs', 'products'));
+    }
+
+    public function about()
+    {
+        $groups = Group::get(['id', 'name']);
+
+        return view('landing.about', compact('groups'));
+    }
+
+    public function aboutDetail($id)
+    {
+        $group = Group::findOrFail($id);
+
+        return view('landing.about-detail', compact('group'));
     }
 
     public function blog()

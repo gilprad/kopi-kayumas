@@ -33,6 +33,8 @@ use App\Http\Controllers\Admin\TicketController;
 */
 
 Route::get('/', [LandingController::class, 'home'])->name('beranda');
+Route::get('/tentang', [LandingController::class, 'about'])->name('tentang');
+Route::get('/tentang/{id}', [LandingController::class, 'aboutDetail'])->name('tentang.detail');
 Route::get('/berita', [LandingController::class, 'blog'])->name('berita');
 Route::get('/berita/{slug}', [LandingController::class, 'blogDetail'])->name('detail.berita');
 Route::get('/toko', [LandingController::class, 'product'])->name('toko');
